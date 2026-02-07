@@ -1,4 +1,5 @@
 import { getCountry } from '../data/countries.js';
+import Footer from '../components/Footer.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -50,6 +51,10 @@ export default class CountryDetail {
                 </section>
             </div>
             <style>
+                .country-page {
+                    position: relative;
+                    z-index: 2;
+                }
                 .country-hero {
                     display: flex;
                     align-items: center;
@@ -128,9 +133,13 @@ export default class CountryDetail {
             duration: 0.8,
             stagger: 0.1
         });
+
+        this.footer = new Footer();
+        this.footer.mount(container, { type: 'sticky' });
     }
 
     unmount() {
         ScrollTrigger.getAll().forEach(t => t.kill());
+        if (this.footer) this.footer.destroy();
     }
 }

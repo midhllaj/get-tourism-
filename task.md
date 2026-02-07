@@ -1,6 +1,5 @@
-# Task Checklist
+# Task: Adjust Service Box Width
 
-- [x] Determine current positions and dimensions
-- [x] Update `styles.css` to align loader logo at `42vh`
-- [x] Position progress bar below the aligned logo
-- [x] Verify alignment
+- [x] Update `.service-box` width in `styles.css`
+- [x] Review GSAP scroll animation in `src/pages/home.js`
+- [ ] Verify responsiveness [/]

@@ -5,7 +5,7 @@ import gsap from 'gsap';
 export default class Destinations {
     async mount(container) {
         container.innerHTML = `
-            <div class="destinations-page">
+            <div class="destinations-page" style="position: relative; z-index: 2;">
                 <section class="page-header section flex-center">
                     <div class="text-center">
                         <h1 class="fade-in">Our Destinations</h1>
@@ -98,7 +98,7 @@ export default class Destinations {
             }
         });
         this.footer = new Footer();
-        this.footer.mount(container);
+        this.footer.mount(container, { type: 'sticky' });
     }
     unmount() {
         if (this.footer) this.footer.destroy();

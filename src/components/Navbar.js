@@ -1,4 +1,5 @@
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 /**
  * Navbar component with integrated mobile side menu.
@@ -415,7 +416,48 @@ export default class Navbar {
         }
     }
 
-    mount(parent) {
+    mount(parent, options = {}) {
         parent.insertBefore(this.element, parent.firstChild);
+
+        if (options.solid) {
+            this.element.classList.add('solid');
+            gsap.set(this.element, {
+                backgroundColor: 'rgba(255, 255, 255, 1)',
+                backdropFilter: 'blur(10px)',
+                borderBottom: '1px solid rgba(0, 0, 0, 0.1)'
+            });
+            const navLinks = this.element.querySelectorAll('.nav-btn, .contact-info');
+            const navLogo = this.element.querySelector('.nav-logo');
+            if (navLogo) gsap.set(navLogo, { opacity: 1 });
+            if (navLinks.length > 0) gsap.set(navLinks, { color: 'rgb(0, 0, 0)' });
+        }
+
+        // Global Hide/Show on Scroll Logic
+        this.scrollTrigger = gsap.to(this.element, {
+            yPercent: -100,
+            paused: true,
+            duration: 0.3,
+            ease: 'power2.out'
+        });
+
+        ScrollTrigger.create({
+            start: 'top top',
+            end: 99999,
+            onUpdate: (self) => {
+                if (self.direction === 1) {
+                    this.scrollTrigger.play();
+                } else {
+                    this.scrollTrigger.reverse();
+                }
+            }
+        });
+    }
+
+    setSolid(isSolid) {
+        if (isSolid) {
+            this.element.classList.add('solid');
+        } else {
+            this.element.classList.remove('solid');
+        }
     }
 }

@@ -37,14 +37,21 @@ export default class Footer {
         `;
     }
 
-    mount(container) {
+    mount(container, options = {}) {
         // Append footer HTML to the container
         const footerTemplate = document.createElement('div');
         footerTemplate.innerHTML = this.html.trim();
         const footerElement = footerTemplate.firstChild;
+
+        if (options.type) {
+            footerElement.classList.add(`${options.type}-footer`);
+        }
+
         container.appendChild(footerElement);
 
-        this.initStickyFooter(container);
+        if (options.type !== 'relative') {
+            this.initStickyFooter(container);
+        }
     }
 
     initStickyFooter(container) {

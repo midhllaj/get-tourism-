@@ -6,7 +6,7 @@ import Destinations from './pages/destinations.js'; // Placeholder
 import CountryDetail from './pages/countryDetail.js';
 
 class Router {
-    constructor() {
+    constructor(navbar) {
         this.routes = {
             '/': Home,
             '/about': About,
@@ -17,6 +17,7 @@ class Router {
         };
 
         this.app = document.getElementById('app');
+        this.navbar = navbar;
         this.currentRoute = null;
     }
 
@@ -58,6 +59,11 @@ class Router {
         if (this.currentRoute && this.currentRoute.unmount) {
             this.currentRoute.unmount();
         }
+
+        if (this.navbar) {
+            this.navbar.setSolid(path !== '/');
+        }
+        document.body.classList.toggle('white-theme', path !== '/');
 
         this.app.innerHTML = '';
         this.currentRoute = new component(params);

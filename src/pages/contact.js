@@ -4,7 +4,7 @@ import gsap from 'gsap';
 export default class Contact {
     async mount(container) {
         container.innerHTML = `
-            <div class="contact-page">
+            <div class="contact-page" style="position: relative; z-index: 2;">
                 <section class="section flex-center container">
                     <div class="contact-wrapper glass" style="padding: 3rem; max-width: 600px; width: 100%; border-radius: 12px;">
                         <div class="text-center" style="margin-bottom: 2rem;">
@@ -78,7 +78,7 @@ export default class Contact {
             ease: 'power2.out'
         });
         this.footer = new Footer();
-        this.footer.mount(container);
+        this.footer.mount(container, { type: 'sticky' });
     }
     unmount() {
         if (this.footer) this.footer.destroy();

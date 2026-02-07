@@ -93,6 +93,7 @@ export default class Home {
 
                 <section class="outro">
                     <h1>Ready for your next adventure?</h1>
+                </section>
 
                 <div class="cta-container">
                     <div class="cta-button">
@@ -112,7 +113,7 @@ export default class Home {
 
         // Mount Footer
         this.footer = new Footer();
-        this.footer.mount(container);
+        this.footer.mount(container, { type: 'fixed' });
 
         this.prepareTextReveal();
         this.initAnimations();
@@ -164,7 +165,7 @@ export default class Home {
                 position: 'fixed',
                 left: '50%',
                 xPercent: -50,
-                top: '55vh', /* Updated from 61vh */
+                top: '55vh',
                 bottom: 'auto',
                 zIndex: 100
             });
@@ -292,7 +293,7 @@ export default class Home {
 
                 // CTA Position
                 if (ctaContainer) {
-                    let ctaTop = progress < 0.15 ? 55 + (35 * (progress / 0.15)) : 90; /* Updated calculation */
+                    let ctaTop = progress < 0.15 ? 55 + (35 * (progress / 0.15)) : 90;
                     gsap.set(ctaContainer, { top: `${ctaTop}vh` });
                 }
 
@@ -328,18 +329,17 @@ export default class Home {
             });
         }
 
-        // CTA Sticky/Absolute Logic for Outro
+        /* Refined CTA Locking Logic */
         const outroText = document.querySelector('.outro h1');
         if (ctaContainer && outroText) {
             ScrollTrigger.create({
                 trigger: outroText,
-                start: "bottom 82%", // Adjust to catch button at ~90vh minus padding
+                start: "bottom 90%", // Lock exactly when the bottom of the text reaches the floating button (at 90vh)
                 onEnter: () => {
-                    // Lock button to document position
-                    const currentScroll = window.scrollY;
-                    const viewportHeight = window.innerHeight;
-                    // We want it visually at 90vh at this moment, so absolute top is scroll + 90vh
-                    const absoluteTop = currentScroll + (viewportHeight * 0.9);
+                    // Lock button below text in outro
+                    const rect = outroText.getBoundingClientRect();
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const absoluteTop = scrollTop + rect.bottom + 48; // 3rem gap (48px)
 
                     gsap.set(ctaContainer, {
                         position: "absolute",
@@ -349,15 +349,14 @@ export default class Home {
                     });
                 },
                 onLeaveBack: () => {
-                    // Revert to fixed
+                    // Revert to fixed floating state
                     gsap.set(ctaContainer, {
                         position: "fixed",
                         top: "90vh",
                         left: "50%",
                         xPercent: -50
                     });
-                },
-                markers: false // set true for debugging if needed
+                }
             });
         }
 
@@ -375,23 +374,7 @@ export default class Home {
 
         /* Removed CTA Fade Out Logic as requested */
 
-        // Navbar Hide on Scroll Down
-        if (navbar) {
-            ScrollTrigger.create({
-                start: `top+=${viewportHeight * 3} top`,
-                end: 99999,
-                onUpdate: (self) => {
-                    if (self.direction === 1) {
-                        gsap.to(navbar, { yPercent: -100, duration: 0.3, ease: 'power2.out', overwrite: 'auto' });
-                    } else {
-                        gsap.to(navbar, { yPercent: 0, duration: 0.3, ease: 'power2.out', overwrite: 'auto' });
-                    }
-                },
-                onLeaveBack: () => {
-                    gsap.to(navbar, { yPercent: 0, duration: 0.3, ease: 'power2.out', overwrite: 'auto' });
-                }
-            });
-        }
+        // Navbar Hide on Scroll Down - REMOVED: Handled globally by Navbar component
     }
 
     unmount() {
