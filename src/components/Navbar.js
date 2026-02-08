@@ -1,4 +1,5 @@
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 /**
  * Navbar component with integrated mobile side menu.
@@ -45,12 +46,6 @@ export default class Navbar {
                             <span class="btn-text-hover">Services</span>
                         </span>
                     </a>
-                    <a href="#/globe" data-link class="nav-btn">
-                        <span class="btn-wrapper">
-                            <span class="btn-text">Globe</span>
-                            <span class="btn-text-hover">Globe</span>
-                        </span>
-                    </a>
                 </div>
 
                 <!-- Desktop Right Contact -->
@@ -91,9 +86,6 @@ export default class Navbar {
                             </div>
                             <div class="menu-link-item">
                                 <a href="#/services" data-link>Services</a>
-                            </div>
-                            <div class="menu-link-item">
-                                <a href="#/globe" data-link>Globe</a>
                             </div>
                             <div class="menu-link-item">
                                 <a href="tel:+971551248758">Contact</a>
@@ -292,7 +284,8 @@ export default class Navbar {
             .menu-link-item a {
                 display: block;
                 font-size: 4rem;
-                font-family: "Instrument Serif", serif;
+                font-family: "Montserrat", sans-serif;
+                font-weight: 700;
                 color: #1a1a1a;
                 text-decoration: none;
                 line-height: 1;
@@ -424,7 +417,73 @@ export default class Navbar {
         }
     }
 
-    mount(parent) {
+    mount(parent, options = {}) {
         parent.insertBefore(this.element, parent.firstChild);
+
+        if (options.solid) {
+            this.setSolid(true);
+        }
+
+        // Internal Animation to hide/show
+        this.scrollTriggerAnim = gsap.to(this.element, {
+            yPercent: -100,
+            paused: true,
+            duration: 0.3,
+            ease: 'power2.out'
+        });
+
+        // Global trigger for non-home pages
+        if (options.globalScroll !== false) {
+            this.createGlobalTrigger();
+        }
+    }
+
+    createGlobalTrigger() {
+        if (this.globalTrigger) this.globalTrigger.kill();
+        this.globalTrigger = ScrollTrigger.create({
+            start: 'top top',
+            end: 99999,
+            onUpdate: (self) => {
+                if (self.direction === 1) {
+                    this.scrollTriggerAnim.play();
+                } else {
+                    this.scrollTriggerAnim.reverse();
+                }
+            }
+        });
+    }
+
+    setSolid(isSolid) {
+        if (isSolid) {
+            this.element.classList.add('solid');
+            gsap.set(this.element, {
+                backgroundColor: 'rgba(255, 255, 255, 1)',
+                backdropFilter: 'blur(10px)',
+                borderBottom: '1px solid rgba(0, 0, 0, 0.1)'
+            });
+            const navLinks = this.element.querySelectorAll('.nav-btn, .contact-info');
+            const navLogo = this.element.querySelector('.nav-logo');
+            if (navLogo) gsap.set(navLogo, { opacity: 1 });
+            if (navLinks.length > 0) gsap.set(navLinks, { color: 'rgb(0, 0, 0)' });
+        } else {
+            this.element.classList.remove('solid');
+            gsap.set(this.element, {
+                backgroundColor: 'rgba(255, 255, 255, 0)',
+                backdropFilter: 'blur(0px)',
+                borderBottom: '1px solid rgba(0, 0, 0, 0)'
+            });
+            const navLinks = this.element.querySelectorAll('.nav-btn, .contact-info');
+            const navLogo = this.element.querySelector('.nav-logo');
+            if (navLogo) gsap.set(navLogo, { opacity: 0 });
+            if (navLinks.length > 0) gsap.set(navLinks, { color: 'rgb(255, 255, 255)' });
+        }
+    }
+
+    setVisible(visible) {
+        if (visible) {
+            this.element.style.display = 'flex';
+        } else {
+            this.element.style.display = 'none';
+        }
     }
 }
