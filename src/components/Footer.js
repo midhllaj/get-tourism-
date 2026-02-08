@@ -43,14 +43,38 @@ export default class Footer {
         footerTemplate.innerHTML = this.html.trim();
         const footerElement = footerTemplate.firstChild;
 
-        if (options.type) {
-            footerElement.classList.add(`${options.type}-footer`);
+        // Apply appropriate classes based on type
+        if (options.type === 'fixed') {
+            footerElement.classList.add('fixed-footer');
+        } else if (options.type === 'reveal') {
+            footerElement.classList.add('reveal-footer');
+            // For reveal effect, add padding to main content to ensure footer can reveal
+            this.addRevealPadding(container);
         }
 
         container.appendChild(footerElement);
 
-        if (options.type !== 'relative') {
+        // Only call initStickyFooter for non-reveal footers
+        if (options.type !== 'reveal' && options.type !== 'fixed') {
             this.initStickyFooter(container);
+        }
+    }
+
+    addRevealPadding(container) {
+        // Add padding to the main content wrapper to allow footer to reveal
+        // This ensures there's enough scroll distance for the footer to show
+        const mainContent = container.querySelector('.main-content') ||
+            container.querySelector('.services-page') ||
+            container.querySelector('.about-page') ||
+            container.querySelector('.contact-page') ||
+            container.querySelector('.destinations-page');
+
+        if (mainContent) {
+            mainContent.style.position = 'relative';
+            mainContent.style.zIndex = '10';
+            mainContent.style.backgroundColor = '#fff';
+            // Add padding equal to footer height (approximately 300px)
+            mainContent.style.paddingBottom = '300px';
         }
     }
 

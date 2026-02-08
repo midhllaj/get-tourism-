@@ -1,4 +1,5 @@
 import Globe from '../components/Globe.js';
+import Footer from '../components/Footer.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React from 'react';
@@ -537,6 +538,10 @@ export default class Services {
 
         btnOurServices.addEventListener('click', () => setActive(false));
         btn3dExperience.addEventListener('click', () => setActive(true));
+
+        // Mount Footer with reveal effect
+        this.footer = new Footer();
+        this.footer.mount(container, { type: 'reveal' });
     }
 
     unmount() {
@@ -548,6 +553,9 @@ export default class Services {
         }
         if (this.sliderTrigger) {
             this.sliderTrigger.kill();
+        }
+        if (this.footer) {
+            this.footer.destroy();
         }
     }
 }
