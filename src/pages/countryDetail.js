@@ -28,34 +28,70 @@ export default class CountryDetail {
                     </div>
                 </section>
                 
-                <section class="country-info section container">
+                <section class="country-info section container" style="height: auto; min-height: 100vh; overflow: visible;">
                     <div class="info-grid">
                         <div class="info-text">
-                            <h3>Overview</h3>
+                            <h3 class="section-title">Overview</h3>
                             <p>${this.data.description}</p>
                             <button class="enquire-btn" style="background: var(--gold); color: black; margin-top: 2rem;">Book This Trip</button>
                         </div>
                         <div class="info-highlights">
-                            <h3>Highlights</h3>
-                            <ul>
+                            <h3 class="section-title">Highlights</h3>
+                            <div class="highlights-grid">
                                 ${this.data.highlights.map(h => `
-                                    <li>
-                                        <strong>${h.title}</strong>
-                                        <span>${h.desc}</span>
-                                    </li>
+                                    <div class="highlight-card">
+                                        ${h.image ? `<img src="${h.image}" alt="${h.title}" loading="lazy" />` : ''}
+                                        <div class="highlight-content">
+                                            <strong>${h.title}</strong>
+                                            <span>${h.desc}</span>
+                                        </div>
+                                    </div>
                                 `).join('')}
-                            </ul>
+                            </div>
                         </div>
                     </div>
+
+                    ${this.data.whyUs ? `
+                        <div class="why-us-section" style="margin-top: 6rem; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
+                            <h3 class="section-title">Why Choose Us?</h3>
+                            <p style="font-size: 1.1rem; line-height: 1.8; opacity: 0.9;">${this.data.whyUs}</p>
+                        </div>
+                    ` : ''}
+
+                    ${this.data.activities ? `
+                        <div class="activities-section" style="margin-top: 8rem;">
+                            <h3 class="section-title" style="text-align: center; margin-bottom: 3rem;">Unforgettable Activities</h3>
+                            <div class="activities-grid">
+                                ${this.data.activities.map((act, index) => `
+                                    <div class="activity-card glass">
+                                        <div class="activity-image">
+                                            <img src="${act.image}" alt="${act.title}" loading="lazy" />
+                                        </div>
+                                        <div class="activity-details">
+                                            <h4>${act.title}</h4>
+                                            <p>${act.desc}</p>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
                 </section>
             </div>
             <style>
+                .section-title {
+                    font-family: "Instrument Serif", serif;
+                    font-size: 2rem;
+                    color: var(--gold);
+                    margin-bottom: 1.5rem;
+                }
                 .country-hero {
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     color: white;
                     text-align: center;
+                    min-height: 80vh;
                 }
                 .hero-bg {
                     position: absolute;
@@ -64,6 +100,11 @@ export default class CountryDetail {
                     width: 100%;
                     height: 100%;
                     z-index: -1;
+                }
+                .hero-bg img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
                 }
                 .hero-bg .overlay {
                     position: absolute;
@@ -86,21 +127,82 @@ export default class CountryDetail {
                     gap: 4rem;
                     margin-top: 5rem;
                 }
-                .info-highlights ul {
-                    list-style: none;
-                    margin-top: 1rem;
+                
+                /* Highlights Styling */
+                .highlights-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 1.5rem;
                 }
-                .info-highlights li {
-                    border-bottom: 1px solid var(--glass-border);
-                    padding: 1rem 0;
+                .highlight-card {
+                    background: rgba(255,255,255,0.05);
+                    border: 1px solid var(--glass-border);
+                    border-radius: 12px;
+                    overflow: hidden;
+                    transition: transform 0.3s ease;
                 }
-                .info-highlights strong {
+                .highlight-card:hover {
+                    transform: translateY(-5px);
+                }
+                .highlight-card img {
+                    width: 100%;
+                    height: 150px;
+                    object-fit: cover;
+                }
+                .highlight-content {
+                    padding: 1rem;
+                }
+                .highlight-content strong {
                     display: block;
-                    font-size: 1.2rem;
                     color: var(--gold);
+                    margin-bottom: 0.5rem;
+                    font-size: 1.1rem;
                 }
+
+                /* Activities Styling */
+                .activities-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                    gap: 2rem;
+                }
+                .activity-card {
+                    overflow: hidden;
+                    border-radius: 16px;
+                    background: #111;
+                    height: 100%;
+                }
+                .activity-image {
+                    height: 250px;
+                    overflow: hidden;
+                }
+                .activity-image img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.5s ease;
+                }
+                .activity-card:hover .activity-image img {
+                    transform: scale(1.1);
+                }
+                .activity-details {
+                    padding: 1.5rem;
+                }
+                .activity-details h4 {
+                    color: var(--gold);
+                    font-size: 1.3rem;
+                    font-family: "Instrument Serif", serif;
+                    margin-bottom: 0.5rem;
+                }
+                .activity-details p {
+                    color: #ccc;
+                    font-size: 0.95rem;
+                }
+
                 @media(max-width: 768px) {
                     .info-grid {
+                        grid-template-columns: 1fr;
+                    }
+                    .activities-grid {
                         grid-template-columns: 1fr;
                     }
                 }
@@ -118,16 +220,41 @@ export default class CountryDetail {
             duration: 1
         });
 
-        gsap.from('.info-highlights li', {
+        gsap.from('.highlight-card', {
             scrollTrigger: {
                 trigger: '.info-highlights',
                 start: 'top 80%'
             },
-            y: 20,
+            y: 30,
             opacity: 0,
             duration: 0.8,
             stagger: 0.1
         });
+
+        if (this.data.whyUs) {
+            gsap.from('.why-us-section', {
+                scrollTrigger: {
+                    trigger: '.why-us-section',
+                    start: 'top 80%'
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1
+            });
+        }
+
+        if (this.data.activities) {
+            gsap.from('.activity-card', {
+                scrollTrigger: {
+                    trigger: '.activities-grid',
+                    start: 'top 85%'
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.15
+            });
+        }
     }
 
     unmount() {

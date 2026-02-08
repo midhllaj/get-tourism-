@@ -4,6 +4,7 @@ import About from './pages/about.js';
 import Contact from './pages/contact.js';
 import Destinations from './pages/destinations.js'; // Placeholder
 import CountryDetail from './pages/countryDetail.js';
+import GlobePage from './pages/globe.jsx';
 
 class Router {
     constructor() {
@@ -13,7 +14,8 @@ class Router {
             '/services': Services,
             '/contact': Contact,
             '/destinations': Destinations,
-            '/country': CountryDetail // Helper route, we will use query params
+            '/country': CountryDetail, // Helper route, we will use query params
+            '/globe': GlobePage
         };
 
         this.app = document.getElementById('app');

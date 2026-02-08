@@ -45,6 +45,12 @@ export default class Navbar {
                             <span class="btn-text-hover">Services</span>
                         </span>
                     </a>
+                    <a href="#/globe" data-link class="nav-btn">
+                        <span class="btn-wrapper">
+                            <span class="btn-text">Globe</span>
+                            <span class="btn-text-hover">Globe</span>
+                        </span>
+                    </a>
                 </div>
 
                 <!-- Desktop Right Contact -->
@@ -85,6 +91,9 @@ export default class Navbar {
                             </div>
                             <div class="menu-link-item">
                                 <a href="#/services" data-link>Services</a>
+                            </div>
+                            <div class="menu-link-item">
+                                <a href="#/globe" data-link>Globe</a>
                             </div>
                             <div class="menu-link-item">
                                 <a href="tel:+971551248758">Contact</a>

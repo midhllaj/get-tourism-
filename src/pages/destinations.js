@@ -3,94 +3,147 @@ import gsap from 'gsap';
 
 export default class Destinations {
     async mount(container) {
+        const countriesList = Object.values(countries);
+
         container.innerHTML = `
             <div class="destinations-page">
-                <section class="page-header section flex-center">
-                    <div class="text-center">
-                        <h1 class="fade-in">Our Destinations</h1>
-                        <p class="fade-in" style="animation-delay: 0.2s; margin-top: 1rem; opacity: 0.7;">Explore our curated selection of global wonders.</p>
+                <!-- Hero Section -->
+                <section class="page-hero" style="position: relative; height: 60vh; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                    <div class="hero-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;">
+                        <img src="/assets/tour-package.png" alt="Tour Packages" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4);"></div>
+                    </div>
+                    <div class="hero-content text-center" style="position: relative; z-index: 2; color: white;">
+                        <h1 style="font-family: 'Instrument Serif', serif; font-size: 5rem; text-shadow: 0 4px 10px rgba(0,0,0,0.5);">Tour Packages</h1>
+                    </div>
+                </section>
+
+                <!-- Intro Section -->
+                <section class="intro-section" style="background: #fff; color: #1a1a1a; padding: 6rem 2rem; text-align: center;">
+                    <div class="container" style="max-width: 800px; margin: 0 auto;">
+                        <h2 style="font-family: 'Instrument Serif', serif; font-size: 3.5rem; margin-bottom: 1.5rem;">Our Destinations</h2>
+                        <p style="font-size: 1.1rem; line-height: 1.8; color: #555; font-family: 'Inter', sans-serif;">
+                            Experience the essence of each destination through our meticulously designed tour packages. Explore the iconic attractions while also delving into the hidden gems that make each place truly special. Whether it’s a Dubai city tour with all excursions or a journey to the exotic landscapes of Kerala, our packages ensure a holistic and immersive travel experience.
+                        </p>
                     </div>
                 </section>
                 
-                <section class="destinations-grid container section">
-                    <div class="grid">
-                        ${Object.values(countries).map(country => `
-                            <a href="#/country/${country.id}" class="destination-card" data-link>
-                                <div class="card-image">
-                                    <img src="${country.heroImage}" alt="${country.name}">
-                                </div>
-                                <div class="card-content">
-                                    <h3>${country.name}</h3>
-                                    <p>${country.tagline}</p>
-                                    <span class="explore-btn">Explore &rarr;</span>
-                                </div>
-                            </a>
-                        `).join('')}
+                <!-- Destinations Grid -->
+                <section class="destinations-grid-section" style="background: #fff; padding: 0 2rem 6rem;">
+                    <div class="container" style="max-width: 1400px; margin: 0 auto;">
+                        <div class="grid">
+                            ${countriesList.map(country => `
+                                <a href="#/country/${country.id}" class="destination-card" data-continent="${country.continent || 'World'}" data-link>
+                                    <div class="card-image">
+                                        <img src="${country.heroImage}" alt="${country.name}">
+                                        <div class="card-overlay"></div>
+                                    </div>
+                                    <div class="card-content">
+                                        <h3>${country.name}</h3>
+                                        <span class="explore-btn">Explore</span>
+                                    </div>
+                                </a>
+                            `).join('')}
+                        </div>
                     </div>
                 </section>
             </div>
             <style>
-                .page-header {
-                    height: 50vh;
-                    background: linear-gradient(to bottom, #000, #111);
-                }
                 .grid {
                     display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                    grid-template-columns: repeat(3, 1fr);
                     gap: 2rem;
-                    padding-bottom: 5rem;
                 }
+                @media (max-width: 1024px) {
+                    .grid { grid-template-columns: repeat(2, 1fr); }
+                }
+                @media (max-width: 768px) {
+                    .grid { grid-template-columns: 1fr; }
+                }
+
                 .destination-card {
                     display: block;
-                    background: var(--surface);
-                    border-radius: 8px;
+                    position: relative;
+                    border-radius: 20px;
                     overflow: hidden;
-                    transition: transform 0.3s ease;
-                    border: 1px solid var(--glass-border);
+                    height: 400px;
                     text-decoration: none;
                 }
-                .destination-card:hover {
-                    transform: translateY(-10px);
-                }
+
                 .card-image {
-                    height: 250px;
-                    overflow: hidden;
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
                 }
+
                 .card-image img {
-                    transition: transform 0.5s ease;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.6s ease;
                 }
+
+                .card-overlay {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 50%;
+                    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+                    transition: opacity 0.3s ease;
+                }
+
                 .destination-card:hover .card-image img {
-                    transform: scale(1.1);
+                    transform: scale(1.05);
                 }
+
                 .card-content {
-                    padding: 1.5rem;
-                    color: var(--text-color);
+                    position: absolute;
+                    bottom: 30px;
+                    left: 30px;
+                    z-index: 2;
+                    color: white;
                 }
+
                 .card-content h3 {
-                    font-size: 2rem;
+                    font-family: 'Instrument Serif', serif;
+                    font-size: 2.5rem;
                     margin-bottom: 0.5rem;
                 }
-                .card-content p {
-                    font-size: 0.9rem;
-                    opacity: 0.7;
-                    margin-bottom: 1rem;
-                    font-family: "Inter", sans-serif;
-                }
+
                 .explore-btn {
-                    color: var(--gold);
                     font-size: 0.9rem;
                     text-transform: uppercase;
                     letter-spacing: 1px;
+                    border: 1px solid rgba(255,255,255,0.6);
+                    padding: 8px 20px;
+                    border-radius: 30px;
+                    transition: all 0.3s ease;
+                    background: rgba(255,255,255,0.1);
+                    backdrop-filter: blur(5px);
+                }
+
+                .destination-card:hover .explore-btn {
+                    background: white;
+                    color: black;
+                }
+                
+                /* Override global section styles */
+                .intro-section, .destinations-grid-section {
+                    height: auto !important;
+                    overflow: visible !important;
                 }
             </style>
         `;
 
-        // Stagger Animation
+        // Animation
+        gsap.from('.page-hero h1', { opacity: 0, y: 30, duration: 1, delay: 0.2 });
+        gsap.from('.intro-section', { opacity: 0, y: 30, duration: 1, delay: 0.4, scrollTrigger: '.intro-section' });
         gsap.from('.destination-card', {
-            y: 50,
             opacity: 0,
+            y: 50,
             duration: 0.8,
-            stagger: 0.2,
+            stagger: 0.1,
             scrollTrigger: {
                 trigger: '.grid',
                 start: 'top 80%'
