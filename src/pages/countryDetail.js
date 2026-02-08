@@ -23,13 +23,13 @@ export default class CountryDetail {
         ];
 
         container.innerHTML = `
-            <div class="country-page" style="background: #000;">
-                <section class="country-hero section">
+            <div class="country-page">
+                <section class="country-hero">
                     <div class="hero-bg">
                         <img src="${this.data.heroImage}" alt="${this.data.name}" />
                         <div class="overlay"></div>
                     </div>
-                    <div class="country-hero-content container">
+                    <div class="hero-content">
                          <h2 class="fade-in">Destination</h2>
                          <h1 class="hero-title fade-in" style="animation-delay: 0.2s">${this.data.name}</h1>
                          <p class="hero-tagline fade-in" style="animation-delay: 0.4s">${this.data.tagline}</p>
@@ -37,21 +37,21 @@ export default class CountryDetail {
                 </section>
                 
                 <section class="smooth-scroll-section">
-                    <div class="project-description">
-                        <div class="image-container" id="pinned-image">
+                    <div class="content-wrapper">
+                        <div class="pinned-image" id="pinned-image">
                             <img src="${allItems[0]?.image || this.data.heroImage}" alt="${allItems[0]?.title || this.data.name}" />
                         </div>
-                        <div class="column">
+                        <div class="text-column">
                             <p>${this.data.description}</p>
                         </div>
-                        <div class="column column-right">
+                        <div class="text-column text-column-small">
                             <p>${this.data.whyUs || 'Discover unforgettable experiences with personalized service and exclusive access to the best attractions.'}</p>
                         </div>
                     </div>
 
-                    <div class="project-list">
+                    <div class="destinations-list">
                         ${allItems.map((item, index) => `
-                            <div class="project-el" data-index="${index}">
+                            <div class="destination-item" data-index="${index}">
                                 <h2>${item.title}</h2>
                             </div>
                         `).join('')}
@@ -64,40 +64,40 @@ export default class CountryDetail {
                     background: #000;
                 }
 
+                /* Hero Section */
                 .country-hero {
+                    position: relative;
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    min-height: 100vh;
                     color: white;
                     text-align: center;
-                    min-height: 100vh;
-                    position: relative;
                 }
+
                 .hero-bg {
                     position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
+                    inset: 0;
                     z-index: 0;
                 }
+
                 .hero-bg img {
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
                 }
+
                 .hero-bg .overlay {
                     position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(0,0,0,0.4);
+                    inset: 0;
+                    background: rgba(0, 0, 0, 0.4);
                 }
-                .country-hero-content {
+
+                .hero-content {
                     position: relative;
                     z-index: 1;
                 }
+
                 .hero-tagline {
                     font-size: 1.5rem;
                     margin-top: 1rem;
@@ -106,119 +106,131 @@ export default class CountryDetail {
                     font-style: italic;
                 }
 
+                /* Smooth Scroll Section */
                 .smooth-scroll-section {
                     position: relative;
-                    color: white;
                     padding: 10% 10% 20%;
+                    color: white;
                     background: #000;
                     min-height: 200vh;
                 }
 
-                .project-description {
+                .content-wrapper {
                     display: flex;
-                    height: 700px;
                     justify-content: space-between;
                     gap: 5%;
+                    height: 700px;
                     margin-bottom: 100px;
                 }
 
-                .image-container {
+                .pinned-image {
                     position: relative;
-                    height: 100%;
                     width: 40%;
+                    height: 100%;
                     overflow: hidden;
                     border-radius: 12px;
                 }
 
-                .image-container img {
-                    object-fit: cover;
+                .pinned-image img {
                     width: 100%;
                     height: 100%;
+                    object-fit: cover;
                     transition: opacity 0.3s ease;
                 }
 
-                .column {
+                .text-column {
                     display: flex;
-                    height: 100%;
                     width: 20%;
-                    font-size: 1.6vw;
+                    height: 100%;
+                    font-size: clamp(14px, 1.6vw, 24px);
                     line-height: 1.6;
                     align-items: flex-start;
                 }
 
-                .column-right {
-                    align-items: flex-end;
-                    font-size: 1vw;
+                .text-column-small {
+                    font-size: clamp(12px, 1vw, 18px);
                     opacity: 0.8;
+                    align-items: flex-end;
                 }
 
-                .project-list {
+                /* Destinations List */
+                .destinations-list {
                     display: flex;
                     flex-direction: column;
-                    position: relative;
                 }
 
-                .project-el {
+                .destination-item {
                     width: 100%;
-                    color: white;
-                    text-transform: uppercase;
-                    font-size: 3vw;
                     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
                     display: flex;
                     justify-content: flex-end;
                     cursor: pointer;
-                    transition: opacity 0.3s;
+                    transition: all 0.3s ease;
                 }
 
-                .project-el:hover {
+                .destination-item:hover {
                     opacity: 0.6;
+                    padding-right: 20px;
                 }
 
-                .project-el h2 {
-                    margin: 0;
-                    margin-top: 40px;
-                    margin-bottom: 20px;
-                    cursor: default;
+                .destination-item h2 {
+                    margin: 40px 0 20px;
+                    color: white;
+                    text-transform: uppercase;
+                    font-size: clamp(24px, 3vw, 60px);
                     font-family: "Instrument Serif", serif;
                     font-weight: 400;
+                    cursor: pointer;
                 }
 
+                /* Responsive Design */
                 @media (max-width: 1000px) {
                     .smooth-scroll-section {
                         padding: 10%;
+                        min-height: auto;
                     }
                     
-                    .project-description {
+                    .content-wrapper {
                         flex-direction: column;
                         height: auto;
                     }
-                    .image-container,
-                    .column,
-                    .column-right {
+
+                    .pinned-image,
+                    .text-column {
                         width: 100%;
                         margin-bottom: 2rem;
                     }
-                    .column,
-                    .column-right {
+
+                    .text-column,
+                    .text-column-small {
                         font-size: 1rem;
+                        align-items: flex-start;
                     }
-                    .project-el {
-                        font-size: 6vw;
+
+                    .destination-item {
                         justify-content: flex-start;
+                    }
+
+                    .destination-item:hover {
+                        padding-left: 20px;
+                        padding-right: 0;
+                    }
+
+                    .destination-item h2 {
+                        font-size: 8vw;
                     }
                 }
             </style>
         `;
 
-        // Store reference for ScrollTrigger
-        this.imageContainer = container.querySelector('#pinned-image');
-        const scrollSection = container.querySelector('.smooth-scroll-section');
-        const allItemsData = allItems;
-
-        // Initialize GSAP ScrollTrigger for pinning the image
+        // Initialize GSAP ScrollTrigger
         gsap.registerPlugin(ScrollTrigger);
 
-        // Calculate end position based on the scroll section height
+        // Store references
+        this.imageContainer = container.querySelector('#pinned-image');
+        const scrollSection = container.querySelector('.smooth-scroll-section');
+
+        // Create pin trigger for image
         this.pinTrigger = ScrollTrigger.create({
             trigger: this.imageContainer,
             pin: true,
@@ -227,16 +239,16 @@ export default class CountryDetail {
             pinSpacing: false
         });
 
-        // Add hover listeners to change image
-        const projectElements = container.querySelectorAll('.project-el');
-        projectElements.forEach((el) => {
-            el.addEventListener('mouseenter', () => {
-                const index = parseInt(el.dataset.index);
-                this.changeImage(index, allItemsData);
+        // Add hover listeners for image switching
+        const destinationItems = container.querySelectorAll('.destination-item');
+        destinationItems.forEach((item) => {
+            item.addEventListener('mouseenter', () => {
+                const index = parseInt(item.dataset.index);
+                this.changeImage(index, allItems);
             });
         });
 
-        // Mount Footer with reveal effect
+        // Mount Footer
         this.footer = new Footer();
         this.footer.mount(document.body, { type: 'reveal' });
     }
@@ -248,27 +260,20 @@ export default class CountryDetail {
         const img = this.imageContainer.querySelector('img');
         const newSrc = items[index]?.image || this.data.heroImage;
 
-        // Animate image change
+        // Smooth image transition
         gsap.to(img, {
             opacity: 0,
             duration: 0.3,
             onComplete: () => {
                 img.src = newSrc;
-                gsap.to(img, {
-                    opacity: 1,
-                    duration: 0.3
-                });
+                gsap.to(img, { opacity: 1, duration: 0.3 });
             }
         });
     }
 
     unmount() {
-        if (this.pinTrigger) {
-            this.pinTrigger.kill();
-        }
+        if (this.pinTrigger) this.pinTrigger.kill();
         ScrollTrigger.getAll().forEach(t => t.kill());
-        if (this.footer) {
-            this.footer.destroy();
-        }
+        if (this.footer) this.footer.destroy();
     }
 }
