@@ -1,4 +1,5 @@
 import { getCountry } from '../data/countries.js';
+import Footer from '../components/Footer.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -6,6 +7,7 @@ export default class CountryDetail {
     constructor(params) {
         this.params = params;
         this.data = getCountry(params.id || 'dubai');
+        this.selectedIndex = 0;
     }
 
     async mount(container) {
@@ -13,6 +15,12 @@ export default class CountryDetail {
             container.innerHTML = `<div class="container section flex-center"><h1>Country Not Found</h1></div>`;
             return;
         }
+
+        // Combine highlights and activities for the list
+        const allItems = [
+            ...(this.data.highlights || []),
+            ...(this.data.activities || [])
+        ];
 
         container.innerHTML = `
             <div class="country-page">
@@ -28,63 +36,29 @@ export default class CountryDetail {
                     </div>
                 </section>
                 
-                <section class="country-info section container" style="height: auto; min-height: 100vh; overflow: visible;">
-                    <div class="info-grid">
-                        <div class="info-text">
-                            <h3 class="section-title">Overview</h3>
-                            <p>${this.data.description}</p>
-                            <button class="enquire-btn" style="background: var(--gold); color: black; margin-top: 2rem;">Book This Trip</button>
+                <section class="smooth-scroll-section">
+                    <div class="project-description">
+                        <div class="image-container" id="pinned-image">
+                            <img src="${allItems[0]?.image || this.data.heroImage}" alt="${allItems[0]?.title || this.data.name}" />
                         </div>
-                        <div class="info-highlights">
-                            <h3 class="section-title">Highlights</h3>
-                            <div class="highlights-grid">
-                                ${this.data.highlights.map(h => `
-                                    <div class="highlight-card">
-                                        ${h.image ? `<img src="${h.image}" alt="${h.title}" loading="lazy" />` : ''}
-                                        <div class="highlight-content">
-                                            <strong>${h.title}</strong>
-                                            <span>${h.desc}</span>
-                                        </div>
-                                    </div>
-                                `).join('')}
-                            </div>
+                        <div class="column">
+                            <p>${this.data.description}</p>
+                        </div>
+                        <div class="column column-right">
+                            <p>${this.data.whyUs || 'Discover unforgettable experiences with personalized service and exclusive access to the best attractions.'}</p>
                         </div>
                     </div>
 
-                    ${this.data.whyUs ? `
-                        <div class="why-us-section" style="margin-top: 6rem; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
-                            <h3 class="section-title">Why Choose Us?</h3>
-                            <p style="font-size: 1.1rem; line-height: 1.8; opacity: 0.9;">${this.data.whyUs}</p>
-                        </div>
-                    ` : ''}
-
-                    ${this.data.activities ? `
-                        <div class="activities-section" style="margin-top: 8rem;">
-                            <h3 class="section-title" style="text-align: center; margin-bottom: 3rem;">Unforgettable Activities</h3>
-                            <div class="activities-grid">
-                                ${this.data.activities.map((act, index) => `
-                                    <div class="activity-card glass">
-                                        <div class="activity-image">
-                                            <img src="${act.image}" alt="${act.title}" loading="lazy" />
-                                        </div>
-                                        <div class="activity-details">
-                                            <h4>${act.title}</h4>
-                                            <p>${act.desc}</p>
-                                        </div>
-                                    </div>
-                                `).join('')}
+                    <div class="project-list">
+                        ${allItems.map((item, index) => `
+                            <div class="project-el" data-index="${index}">
+                                <h2>${item.title}</h2>
                             </div>
-                        </div>
-                    ` : ''}
+                        `).join('')}
+                    </div>
                 </section>
             </div>
             <style>
-                .section-title {
-                    font-family: "Instrument Serif", serif;
-                    font-size: 2rem;
-                    color: var(--gold);
-                    margin-bottom: 1.5rem;
-                }
                 .country-hero {
                     display: flex;
                     align-items: center;
@@ -121,143 +95,161 @@ export default class CountryDetail {
                     font-family: "Instrument Serif", serif;
                     font-style: italic;
                 }
-                .info-grid {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 4rem;
-                    margin-top: 5rem;
+
+                .smooth-scroll-section {
+                    position: relative;
+                    color: white;
+                    margin-top: 25vh;
+                    padding: 10%;
+                    background: #000;
                 }
-                
-                /* Highlights Styling */
-                .highlights-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                    gap: 1.5rem;
+
+                .project-description {
+                    display: flex;
+                    height: 700px;
+                    justify-content: space-between;
+                    gap: 5%;
                 }
-                .highlight-card {
-                    background: rgba(255,255,255,0.05);
-                    border: 1px solid var(--glass-border);
+
+                .image-container {
+                    position: relative;
+                    height: 100%;
+                    width: 40%;
+                    overflow: hidden;
                     border-radius: 12px;
-                    overflow: hidden;
-                    transition: transform 0.3s ease;
-                }
-                .highlight-card:hover {
-                    transform: translateY(-5px);
-                }
-                .highlight-card img {
-                    width: 100%;
-                    height: 150px;
-                    object-fit: cover;
-                }
-                .highlight-content {
-                    padding: 1rem;
-                }
-                .highlight-content strong {
-                    display: block;
-                    color: var(--gold);
-                    margin-bottom: 0.5rem;
-                    font-size: 1.1rem;
                 }
 
-                /* Activities Styling */
-                .activities-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                    gap: 2rem;
-                }
-                .activity-card {
-                    overflow: hidden;
-                    border-radius: 16px;
-                    background: #111;
-                    height: 100%;
-                }
-                .activity-image {
-                    height: 250px;
-                    overflow: hidden;
-                }
-                .activity-image img {
+                .image-container img {
+                    object-fit: cover;
                     width: 100%;
                     height: 100%;
-                    object-fit: cover;
-                    transition: transform 0.5s ease;
+                    transition: opacity 0.3s ease;
                 }
-                .activity-card:hover .activity-image img {
-                    transform: scale(1.1);
+
+                .column {
+                    display: flex;
+                    height: 100%;
+                    width: 20%;
+                    font-size: 1.6vw;
+                    line-height: 1.6;
+                    align-items: flex-start;
                 }
-                .activity-details {
-                    padding: 1.5rem;
+
+                .column-right {
+                    align-items: flex-end;
+                    font-size: 1vw;
+                    opacity: 0.8;
                 }
-                .activity-details h4 {
-                    color: var(--gold);
-                    font-size: 1.3rem;
+
+                .project-list {
+                    display: flex;
+                    flex-direction: column;
+                    position: relative;
+                    margin-top: 200px;
+                }
+
+                .project-el {
+                    width: 100%;
+                    color: white;
+                    text-transform: uppercase;
+                    font-size: 3vw;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+                    display: flex;
+                    justify-content: flex-end;
+                    cursor: pointer;
+                    transition: opacity 0.3s;
+                }
+
+                .project-el:hover {
+                    opacity: 0.6;
+                }
+
+                .project-el h2 {
+                    margin: 0;
+                    margin-top: 40px;
+                    margin-bottom: 20px;
+                    cursor: default;
                     font-family: "Instrument Serif", serif;
-                    margin-bottom: 0.5rem;
-                }
-                .activity-details p {
-                    color: #ccc;
-                    font-size: 0.95rem;
                 }
 
-                @media(max-width: 768px) {
-                    .info-grid {
-                        grid-template-columns: 1fr;
+                @media (max-width: 1000px) {
+                    .project-description {
+                        flex-direction: column;
+                        height: auto;
                     }
-                    .activities-grid {
-                        grid-template-columns: 1fr;
+                    .image-container,
+                    .column,
+                    .column-right {
+                        width: 100%;
+                        margin-bottom: 2rem;
+                    }
+                    .column,
+                    .column-right {
+                        font-size: 1rem;
+                    }
+                    .project-el {
+                        font-size: 6vw;
                     }
                 }
             </style>
         `;
 
-        // Animations
-        gsap.from('.info-text', {
-            scrollTrigger: {
-                trigger: '.country-info',
-                start: 'top 70%'
-            },
-            y: 50,
-            opacity: 0,
-            duration: 1
+        // Store reference for ScrollTrigger
+        this.imageContainer = container.querySelector('#pinned-image');
+        const allItemsData = allItems;
+
+        // Initialize GSAP ScrollTrigger for pinning the image
+        gsap.registerPlugin(ScrollTrigger);
+
+        this.pinTrigger = ScrollTrigger.create({
+            trigger: this.imageContainer,
+            pin: true,
+            start: "top-=100px",
+            end: () => document.body.offsetHeight - window.innerHeight - 50,
         });
 
-        gsap.from('.highlight-card', {
-            scrollTrigger: {
-                trigger: '.info-highlights',
-                start: 'top 80%'
-            },
-            y: 30,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.1
+        // Add hover listeners to change image
+        const projectElements = container.querySelectorAll('.project-el');
+        projectElements.forEach((el) => {
+            el.addEventListener('mouseenter', () => {
+                const index = parseInt(el.dataset.index);
+                this.changeImage(index, allItemsData);
+            });
         });
 
-        if (this.data.whyUs) {
-            gsap.from('.why-us-section', {
-                scrollTrigger: {
-                    trigger: '.why-us-section',
-                    start: 'top 80%'
-                },
-                y: 50,
-                opacity: 0,
-                duration: 1
-            });
-        }
+        // Mount Footer with reveal effect
+        this.footer = new Footer();
+        this.footer.mount(document.body, { type: 'reveal' });
+    }
 
-        if (this.data.activities) {
-            gsap.from('.activity-card', {
-                scrollTrigger: {
-                    trigger: '.activities-grid',
-                    start: 'top 85%'
-                },
-                y: 50,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.15
-            });
-        }
+    changeImage(index, items) {
+        if (this.selectedIndex === index) return;
+        this.selectedIndex = index;
+
+        const img = this.imageContainer.querySelector('img');
+        const newSrc = items[index]?.image || this.data.heroImage;
+
+        // Animate image change
+        gsap.to(img, {
+            opacity: 0,
+            duration: 0.3,
+            onComplete: () => {
+                img.src = newSrc;
+                gsap.to(img, {
+                    opacity: 1,
+                    duration: 0.3
+                });
+            }
+        });
     }
 
     unmount() {
+        if (this.pinTrigger) {
+            this.pinTrigger.kill();
+        }
         ScrollTrigger.getAll().forEach(t => t.kill());
+        if (this.footer) {
+            this.footer.destroy();
+        }
     }
 }
