@@ -23,7 +23,7 @@ export default class CountryDetail {
         ];
 
         container.innerHTML = `
-            <div class="country-page">
+            <div class="country-page" style="background: #000;">
                 <section class="country-hero section">
                     <div class="hero-bg">
                         <img src="${this.data.heroImage}" alt="${this.data.name}" />
@@ -59,13 +59,19 @@ export default class CountryDetail {
                 </section>
             </div>
             <style>
+                .country-page {
+                    min-height: 100vh;
+                    background: #000;
+                }
+
                 .country-hero {
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     color: white;
                     text-align: center;
-                    min-height: 80vh;
+                    min-height: 100vh;
+                    position: relative;
                 }
                 .hero-bg {
                     position: absolute;
@@ -73,7 +79,7 @@ export default class CountryDetail {
                     left: 0;
                     width: 100%;
                     height: 100%;
-                    z-index: -1;
+                    z-index: 0;
                 }
                 .hero-bg img {
                     width: 100%;
@@ -88,6 +94,10 @@ export default class CountryDetail {
                     height: 100%;
                     background: rgba(0,0,0,0.4);
                 }
+                .country-hero-content {
+                    position: relative;
+                    z-index: 1;
+                }
                 .hero-tagline {
                     font-size: 1.5rem;
                     margin-top: 1rem;
@@ -99,9 +109,9 @@ export default class CountryDetail {
                 .smooth-scroll-section {
                     position: relative;
                     color: white;
-                    margin-top: 25vh;
-                    padding: 10%;
+                    padding: 10% 10% 20%;
                     background: #000;
+                    min-height: 200vh;
                 }
 
                 .project-description {
@@ -109,6 +119,7 @@ export default class CountryDetail {
                     height: 700px;
                     justify-content: space-between;
                     gap: 5%;
+                    margin-bottom: 100px;
                 }
 
                 .image-container {
@@ -145,7 +156,6 @@ export default class CountryDetail {
                     display: flex;
                     flex-direction: column;
                     position: relative;
-                    margin-top: 200px;
                 }
 
                 .project-el {
@@ -170,9 +180,14 @@ export default class CountryDetail {
                     margin-bottom: 20px;
                     cursor: default;
                     font-family: "Instrument Serif", serif;
+                    font-weight: 400;
                 }
 
                 @media (max-width: 1000px) {
+                    .smooth-scroll-section {
+                        padding: 10%;
+                    }
+                    
                     .project-description {
                         flex-direction: column;
                         height: auto;
@@ -189,6 +204,7 @@ export default class CountryDetail {
                     }
                     .project-el {
                         font-size: 6vw;
+                        justify-content: flex-start;
                     }
                 }
             </style>
@@ -196,16 +212,19 @@ export default class CountryDetail {
 
         // Store reference for ScrollTrigger
         this.imageContainer = container.querySelector('#pinned-image');
+        const scrollSection = container.querySelector('.smooth-scroll-section');
         const allItemsData = allItems;
 
         // Initialize GSAP ScrollTrigger for pinning the image
         gsap.registerPlugin(ScrollTrigger);
 
+        // Calculate end position based on the scroll section height
         this.pinTrigger = ScrollTrigger.create({
             trigger: this.imageContainer,
             pin: true,
-            start: "top-=100px",
-            end: () => document.body.offsetHeight - window.innerHeight - 50,
+            start: "top 100px",
+            end: () => `+=${scrollSection.offsetHeight - 800}`,
+            pinSpacing: false
         });
 
         // Add hover listeners to change image
