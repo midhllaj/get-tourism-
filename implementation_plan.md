@@ -1,25 +1,31 @@
-# Adjust Service Box Width
+# Update Button Colors to Footer Background
 
-Update the `.service-box` elements in the "Our Services" section to have a width equal to half of the section's width.
+This plan updates all buttons that currently use black (or black-equivalent) colors to use the footer background color (`#0A94D9`).
 
 ## Proposed Changes
 
 ### Styles
-
 #### [MODIFY] [styles.css](file:///c:/Users/sayed/Downloads/get-tourism--main/get-tourism--main/styles.css)
-- Update `.service-box`:
-    - Change `flex: 0 0 350px` to `flex: 0 0 50vw` (assuming the section is full viewport width).
-    - If the section has horizontal padding, I will adjust to `flex: 0 0 calc(50vw - 1rem)` or similar if needed for exact "half section" appearance, but `50vw` usually reflects the user's "half section width" request best.
+- Change `.enquire-btn` background from `var(--dark)` to `#0A94D9`.
+- Change `.enquire-btn:hover` background from `#333` to a slightly darker blue (e.g., `#087bb5`).
+- Change `.cta-button` text color from `#000` to `#0A94D9`.
+- Change `.cta-icon-circle` background from `#000` to `#0A94D9`.
+- Change `.navbar.solid .nav-btn` and `.navbar.solid .contact-info` color from `#000` to `#0A94D9`.
+- Change `.navbar.solid .burger-line` background-color from `#000` to `#0A94D9`.
 
-### Home Page Component
+### Pages
+#### [MODIFY] [contact.js](file:///c:/Users/sayed/Downloads/get-tourism--main/get-tourism--main/src/pages/contact.js)
+- Change `.submit-btn` text color from `black` to `#0A94D9`.
 
-#### [MODIFY] [home.js](file:///c:/Users/sayed/Downloads/get-tourism--main/get-tourism--main/src/pages/home.js)
-- No functional changes expected as the GSAP calculation uses `scrollWidth` and `offsetWidth`, which will automatically account for the new box size.
+#### [MODIFY] [countryDetail.js](file:///c:/Users/sayed/Downloads/get-tourism--main/get-tourism--main/src/pages/countryDetail.js)
+- Change inline style for `button.enquire-btn` text color from `black` to `#0A94D9`.
 
 ## Verification Plan
 
 ### Manual Verification
-1.  Open the application.
-2.  Scroll to the "Our Services" section.
-3.  Verify that each service box (plate) is significantly wider, taking up half the viewport width.
-4.  Confirm the side-scroll animation still works smoothly.
+1.  Open the website in the browser.
+2.  Scroll down to see the `.cta-button`. Verify the text and icon circle are now blue.
+3.  Scroll to the "About Us" section. Verify the "MORE" button is now blue.
+4.  Scroll until the navbar becomes solid. Verify the nav links and hamburger icon are now blue.
+5.  Navigate to the Contact page. Verify the "Send Enquiry" button text is now blue.
+6.  Navigate to a Country Detail page. Verify the "Book This Trip" button text is now blue.

@@ -1,4 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap");
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/Montserrat/Montserrat-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+}
 
 :root {
   --bg-color: #050505;
@@ -42,7 +54,8 @@ html.lenis {
 }
 
 body {
-  font-family: "Inter", sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
   background-color: var(--bg-color);
   color: var(--text-color);
   overflow-x: hidden;
@@ -93,9 +106,9 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  line-height: 0.9;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  line-height: 1.1;
 }
 
 a {
@@ -164,7 +177,7 @@ button {
 
 .navbar.solid .nav-btn,
 .navbar.solid .contact-info {
-  color: #000 !important;
+  color: #0A94D9 !important;
 }
 
 .navbar.solid .nav-logo {
@@ -172,7 +185,7 @@ button {
 }
 
 .navbar.solid .burger-line {
-  background-color: #000 !important;
+  background-color: #0A94D9 !important;
 }
 
 /* App Container */
@@ -255,7 +268,7 @@ button {
 }
 
 body {
-  font-family: "Instrument Serif", sans-serif;
+  font-family: "Montserrat", sans-serif;
   background-color: var(--light);
   color: var(--dark);
 }
@@ -459,7 +472,7 @@ section {
   border-radius: 100px;
   font-family: inherit;
   font-weight: 500;
-  color: #000;
+  color: #0A94D9;
   font-size: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
@@ -518,7 +531,7 @@ section {
 .cta-icon-circle {
   width: 40px;
   height: 40px;
-  background: #000;
+  background: #0A94D9;
   color: #fff;
   border-radius: 50%;
   display: flex;
@@ -621,8 +634,8 @@ section {
 
 /* Scroll Reveal Text Animation */
 .reveal-text-container {
-  font-family: "DM Serif Display", serif;
-  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
   /* DM Serif Display is naturally bold */
   font-size: clamp(1.5rem, 3vw, 2.5rem);
   /* Smaller font size */
@@ -684,22 +697,26 @@ section {
 .about-us {
   position: relative;
   width: 100%;
-  height: 100svh;
+  min-height: 100svh;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  /* Moved content up */
+  align-items: center;
   background-color: var(--light);
   color: var(--dark);
-  padding: 6rem 2rem 2rem;
-  /* Reduced top space explicitly */
+  padding: 8rem 2rem;
   z-index: 2;
-  /* Ensure it sits above fixed elements if any */
+}
+
+.about-grid {
+  max-width: 1400px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
 }
 
 .about-content {
-  max-width: 1400px;
-  width: 100%;
+  flex: 1;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -707,27 +724,35 @@ section {
   gap: 2rem;
 }
 
-.about-content .section-label,
-.about-content .section-title {
-  text-align: left;
+.about-logo-aside {
+  flex: 0 0 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.about-content .enquire-btn {
-  align-self: flex-end;
+.about-logo-img {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  filter: drop-shadow(0 0 40px rgba(0, 0, 0, 0.05));
 }
 
-@media (max-width: 1000px) {
-  .about-us {
-    justify-content: center;
+@media (max-width: 1100px) {
+  .about-grid {
+    flex-direction: column;
+    text-align: center;
+    gap: 3rem;
   }
 
   .about-content {
-    text-align: left;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
   }
 
-  .about-content .enquire-btn {
-    align-self: flex-end;
+  .about-logo-aside {
+    flex: 0 0 auto;
+    width: 250px;
   }
 }
 
@@ -758,7 +783,7 @@ section {
   margin-top: 1rem;
   padding: 1rem 3rem;
   border-radius: 50px;
-  background: var(--dark);
+  background: #0A94D9;
   color: var(--light);
   border: none;
   font-size: 1rem;
@@ -770,7 +795,7 @@ section {
 
 .enquire-btn:hover {
   transform: scale(1.05);
-  background: #333;
+  background: #087bb5;
 }
 
 .window-logo {
@@ -825,8 +850,8 @@ section {
 }
 
 .footer-left h2 {
-  font-family: "Instrument Serif", serif;
-  font-size: 2.5rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
   margin-bottom: 0.5rem;
   color: #ffffff;
 }
@@ -980,7 +1005,8 @@ section {
   font-size: clamp(3.5rem, 8vw, 6rem);
   line-height: 0.9;
   color: #fff;
-  font-family: "Instrument Serif", serif;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
 }
 
 .services-right {
@@ -1032,26 +1058,26 @@ section {
 }
 
 #visit-visa {
-  background-image: url('https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80&w=800');
+  background-image: url('/assets/visit%20visa.jpg');
   background-size: cover;
   background-position: center;
 }
 
 #tour-packages {
-  background-image: url('https://images.unsplash.com/photo-1506929193675-2e022ad99d7b?auto=format&fit=crop&q=80&w=800');
+  background-image: url('/assets/tour%20packages.jpg');
   background-size: cover;
   background-position: center;
 }
 
 #flight-tickets {
-  background-image: url('https://images.unsplash.com/photo-1436491865332-7a61a109c0f3?auto=format&fit=crop&q=80&w=800');
+  background-image: url('/assets/flight%20ticket.jpg');
   background-size: cover;
   background-position: center;
 }
 
 .box-content h3 {
-  font-family: "Instrument Serif", serif;
-  font-size: 2.5rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
   color: #fff;
   margin: 0;
 }

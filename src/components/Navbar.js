@@ -284,7 +284,8 @@ export default class Navbar {
             .menu-link-item a {
                 display: block;
                 font-size: 4rem;
-                font-family: "Instrument Serif", serif;
+                font-family: "Montserrat", sans-serif;
+                font-weight: 700;
                 color: #1a1a1a;
                 text-decoration: none;
                 line-height: 1;
@@ -420,6 +421,40 @@ export default class Navbar {
         parent.insertBefore(this.element, parent.firstChild);
 
         if (options.solid) {
+            this.setSolid(true);
+        }
+
+        // Internal Animation to hide/show
+        this.scrollTriggerAnim = gsap.to(this.element, {
+            yPercent: -100,
+            paused: true,
+            duration: 0.3,
+            ease: 'power2.out'
+        });
+
+        // Global trigger for non-home pages
+        if (options.globalScroll !== false) {
+            this.createGlobalTrigger();
+        }
+    }
+
+    createGlobalTrigger() {
+        if (this.globalTrigger) this.globalTrigger.kill();
+        this.globalTrigger = ScrollTrigger.create({
+            start: 'top top',
+            end: 99999,
+            onUpdate: (self) => {
+                if (self.direction === 1) {
+                    this.scrollTriggerAnim.play();
+                } else {
+                    this.scrollTriggerAnim.reverse();
+                }
+            }
+        });
+    }
+
+    setSolid(isSolid) {
+        if (isSolid) {
             this.element.classList.add('solid');
             gsap.set(this.element, {
                 backgroundColor: 'rgba(255, 255, 255, 1)',
@@ -430,34 +465,25 @@ export default class Navbar {
             const navLogo = this.element.querySelector('.nav-logo');
             if (navLogo) gsap.set(navLogo, { opacity: 1 });
             if (navLinks.length > 0) gsap.set(navLinks, { color: 'rgb(0, 0, 0)' });
-        }
-
-        // Global Hide/Show on Scroll Logic
-        this.scrollTrigger = gsap.to(this.element, {
-            yPercent: -100,
-            paused: true,
-            duration: 0.3,
-            ease: 'power2.out'
-        });
-
-        ScrollTrigger.create({
-            start: 'top top',
-            end: 99999,
-            onUpdate: (self) => {
-                if (self.direction === 1) {
-                    this.scrollTrigger.play();
-                } else {
-                    this.scrollTrigger.reverse();
-                }
-            }
-        });
-    }
-
-    setSolid(isSolid) {
-        if (isSolid) {
-            this.element.classList.add('solid');
         } else {
             this.element.classList.remove('solid');
+            gsap.set(this.element, {
+                backgroundColor: 'rgba(255, 255, 255, 0)',
+                backdropFilter: 'blur(0px)',
+                borderBottom: '1px solid rgba(0, 0, 0, 0)'
+            });
+            const navLinks = this.element.querySelectorAll('.nav-btn, .contact-info');
+            const navLogo = this.element.querySelector('.nav-logo');
+            if (navLogo) gsap.set(navLogo, { opacity: 0 });
+            if (navLinks.length > 0) gsap.set(navLinks, { color: 'rgb(255, 255, 255)' });
+        }
+    }
+
+    setVisible(visible) {
+        if (visible) {
+            this.element.style.display = 'flex';
+        } else {
+            this.element.style.display = 'none';
         }
     }
 }

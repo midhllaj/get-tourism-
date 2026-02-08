@@ -45,15 +45,20 @@ export default class Home {
                 </section>
 
                 <section class="about-us">
-                    <div class="about-content">
-                        <h2 class="section-label">About Us</h2>
-                        <h1 class="section-title">Welcome to <br> Great Escapes Tourism</h1>
-                        <p class="section-text">
-                            At Great Escapes Tourism, we believe that travel is not just about visiting places; it's about creating
-                            memories, forming connections, and expanding horizons. Our company was born out of a deep passion for 
-                            exploring the world and sharing those experiences with fellow travelers.
-                        </p>
-                        <button class="enquire-btn">MORE</button>
+                    <div class="about-grid container">
+                        <div class="about-content">
+                            <h2 class="section-label">About Us</h2>
+                            <h1 class="section-title">Welcome to <br> Great Escapes Tourism</h1>
+                            <p class="section-text">
+                                At Great Escapes Tourism, we believe that travel is not just about visiting places; it's about creating
+                                memories, forming connections, and expanding horizons. Our company was born out of a deep passion for 
+                                exploring the world and sharing those experiences with fellow travelers.
+                            </p>
+                            <button class="enquire-btn">MORE</button>
+                        </div>
+                        <div class="about-logo-aside">
+                            <img src="/assets/about%20us%20logo.png" alt="GET Logo" class="about-logo-img">
+                        </div>
                     </div>
                 </section>
 
@@ -374,7 +379,36 @@ export default class Home {
 
         /* Removed CTA Fade Out Logic as requested */
 
-        // Navbar Hide on Scroll Down - REMOVED: Handled globally by Navbar component
+        // About Us Logo Animation
+        gsap.from('.about-logo-aside', {
+            scrollTrigger: {
+                trigger: '.about-us',
+                start: 'top 60%',
+                toggleActions: 'play none none reverse'
+            },
+            x: 100,
+            opacity: 0,
+            duration: 1.2,
+            ease: 'power3.out'
+        });
+
+        // Navbar Hide on Scroll Down - Restored specific logic for Home
+        if (navbar) {
+            ScrollTrigger.create({
+                start: `top+=${viewportHeight * 3} top`,
+                end: 99999,
+                onUpdate: (self) => {
+                    if (self.direction === 1) {
+                        if (this.navbarInstance && this.navbarInstance.scrollTriggerAnim) this.navbarInstance.scrollTriggerAnim.play();
+                    } else {
+                        if (this.navbarInstance && this.navbarInstance.scrollTriggerAnim) this.navbarInstance.scrollTriggerAnim.reverse();
+                    }
+                },
+                onLeaveBack: () => {
+                    if (this.navbarInstance && this.navbarInstance.scrollTriggerAnim) this.navbarInstance.scrollTriggerAnim.reverse();
+                }
+            });
+        }
     }
 
     unmount() {

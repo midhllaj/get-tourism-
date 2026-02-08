@@ -61,12 +61,21 @@ class Router {
         }
 
         if (this.navbar) {
-            this.navbar.setSolid(path !== '/');
+            const isHome = path === '/';
+            this.navbar.setVisible(isHome);
+            this.navbar.setSolid(!isHome);
+            if (!isHome) {
+                this.navbar.createGlobalTrigger();
+            } else if (this.navbar.globalTrigger) {
+                this.navbar.globalTrigger.kill();
+                this.navbar.globalTrigger = null;
+            }
         }
         document.body.classList.toggle('white-theme', path !== '/');
 
         this.app.innerHTML = '';
         this.currentRoute = new component(params);
+        this.currentRoute.navbarInstance = this.navbar; // Inject navbar instance
         await this.currentRoute.mount(this.app);
 
         this.updateSEO(path, params);
