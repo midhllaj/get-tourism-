@@ -1,4 +1,5 @@
 import gsap from 'gsap';
+import Footer from '../components/Footer.js';
 
 export default class About {
     async mount(container) {
@@ -106,6 +107,15 @@ export default class About {
             duration: 0.8,
             stagger: 0.2
         });
+
+        // Mount Footer with reveal effect
+        this.footer = new Footer();
+        this.footer.mount(document.body, { type: 'reveal' });
     }
-    unmount() { }
+
+    unmount() {
+        if (this.footer) {
+            this.footer.destroy();
+        }
+    }
 }

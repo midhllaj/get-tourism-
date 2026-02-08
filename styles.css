@@ -634,26 +634,14 @@ section {
 
 /* Footer Styles */
 .footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
   width: 100%;
   background: #1a1a1a;
   color: #f0f0f0;
-  padding: 3rem 0 1rem;
-}
-
-/* Footer reveal effect - positioned behind content */
-.footer.reveal-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
   z-index: 1;
-}
-
-/* Fixed footer for Home page */
-.footer.fixed-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 100;
+  padding: 3rem 0 1rem;
 }
 
 .footer-content {
@@ -665,27 +653,27 @@ section {
 .footer-top {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  gap: 4rem;
+  margin-bottom: 2rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-left h2 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 1.8rem;
+  font-family: "Instrument Serif", serif;
+  font-size: 1.5rem;
   margin-bottom: 0.5rem;
   font-weight: 400;
 }
 
 .footer-left p {
-  font-size: 0.95rem;
   opacity: 0.7;
-  line-height: 1.6;
+  font-size: 0.95rem;
 }
 
 .footer-nav {
   display: flex;
-  gap: 3rem;
+  gap: 4rem;
   justify-content: flex-end;
 }
 
@@ -696,7 +684,7 @@ section {
 }
 
 .link-col h4 {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -706,11 +694,11 @@ section {
 }
 
 .link-col a {
-  font-size: 0.95rem;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
+  color: #f0f0f0;
   text-decoration: none;
-  color: inherit;
+  font-size: 0.95rem;
+  transition: opacity 0.3s ease;
+  opacity: 0.8;
 }
 
 .link-col a:hover {
@@ -721,11 +709,7 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 2rem;
   font-size: 0.85rem;
-}
-
-.footer-bottom p {
   opacity: 0.6;
 }
 
@@ -735,11 +719,9 @@ section {
 }
 
 .footer-socials a {
-  opacity: 0.6;
-  transition: opacity 0.3s ease;
+  color: #f0f0f0;
   text-decoration: none;
-  color: inherit;
-  font-size: 0.85rem;
+  transition: opacity 0.3s ease;
 }
 
 .footer-socials a:hover {
@@ -748,10 +730,33 @@ section {
 
 .footer-credits {
   text-align: center;
-  padding-top: 1.5rem;
+  margin-top: 1.5rem;
   font-size: 0.75rem;
   opacity: 0.4;
   letter-spacing: 1px;
+}
+
+/* Footer reveal effect - positioned behind content */
+.footer-reveal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* Fixed footer for Home page */
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
+}
+
+/* Page wrapper for reveal effect */
+.page-wrapper-reveal {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  min-height: 100vh;
 }
 
 @media (max-width: 768px) {
@@ -768,7 +773,7 @@ section {
   .footer-bottom {
     flex-direction: column;
     gap: 1rem;
-    align-items: flex-start;
+    text-align: center;
   }
 }
 

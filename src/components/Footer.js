@@ -43,81 +43,28 @@ export default class Footer {
         footerTemplate.innerHTML = this.html.trim();
         const footerElement = footerTemplate.firstChild;
 
-        // Apply appropriate classes based on type
-        if (options.type === 'fixed') {
+        // Apply appropriate class based on type
+        if (options.type === 'reveal') {
+            footerElement.classList.add('footer-reveal');
+            // Wrap page content for reveal effect
+            const pageContent = container.querySelector('#app');
+            if (pageContent && !pageContent.classList.contains('page-wrapper-reveal')) {
+                pageContent.classList.add('page-wrapper-reveal');
+                // Add padding bottom to allow footer to reveal
+                pageContent.style.paddingBottom = '400px'; // Approximate footer height
+            }
+        } else if (options.type === 'fixed') {
             footerElement.classList.add('fixed-footer');
-        } else if (options.type === 'reveal') {
-            footerElement.classList.add('reveal-footer');
-            // For reveal effect, add padding to main content to ensure footer can reveal
-            this.addRevealPadding(container);
         }
 
         container.appendChild(footerElement);
-
-        // Only call initStickyFooter for non-reveal footers
-        if (options.type !== 'reveal' && options.type !== 'fixed') {
-            this.initStickyFooter(container);
-        }
-    }
-
-    addRevealPadding(container) {
-        // Add padding to the main content wrapper to allow footer to reveal
-        // This ensures there's enough scroll distance for the footer to show
-        const mainContent = container.querySelector('.main-content') ||
-            container.querySelector('.services-page') ||
-            container.querySelector('.about-page') ||
-            container.querySelector('.contact-page') ||
-            container.querySelector('.destinations-page');
-
-        if (mainContent) {
-            mainContent.style.position = 'relative';
-            mainContent.style.zIndex = '10';
-            mainContent.style.backgroundColor = '#fff';
-            // Add padding equal to footer height (approximately 300px)
-            mainContent.style.paddingBottom = '300px';
-        }
-    }
-
-    initStickyFooter(container) {
-        const updateMargin = () => {
-            const footer = container.querySelector('.footer');
-            // Try to find a main content wrapper to apply margin-bottom
-            const mainContent = container.querySelector('.main-content') ||
-                container.querySelector('.about-page') ||
-                container.querySelector('.contact-page') ||
-                container.querySelector('.destinations-page') ||
-                container.querySelector('.globe-container');
-
-            if (footer && mainContent) {
-                const footerHeight = footer.offsetHeight;
-                mainContent.style.marginBottom = `${footerHeight}px`;
-            }
-        };
-
-        // Initial update
-        updateMargin();
-
-        // Use ResizeObserver for more robust height tracking if available
-        if (window.ResizeObserver) {
-            const footer = container.querySelector('.footer');
-            if (footer) {
-                this.resizeObserver = new ResizeObserver(() => updateMargin());
-                this.resizeObserver.observe(footer);
-            }
-        } else {
-            window.addEventListener('resize', updateMargin);
-            this.resizeHandler = updateMargin;
-        }
-
-        // Also run on a small delay to catch late layout shifts
-        setTimeout(updateMargin, 100);
     }
 
     destroy() {
-        if (this.resizeObserver) {
-            this.resizeObserver.disconnect();
-        } else if (this.resizeHandler) {
-            window.removeEventListener('resize', this.resizeHandler);
+        // Cleanup if needed
+        const footer = document.querySelector('.footer');
+        if (footer) {
+            footer.remove();
         }
     }
 }

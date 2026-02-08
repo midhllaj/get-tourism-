@@ -28,6 +28,7 @@ gsap.ticker.lagSmoothing(0);
 
 // Initialize Router and Navbar
 import Navbar from './components/Navbar.js';
+import Footer from './components/Footer.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Mount Navbar
@@ -37,7 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const router = new Router();
     router.init();
 
-    // Note: Footer is now mounted by individual pages, not globally
+    // Mount Footer (it will be at bottom naturally, but router clears #app, so footer outside #app)
+    // DISABLED: Pages now handle their own footer with appropriate reveal/fixed positioning
+    // const footer = new Footer();
+    // footer.mount(document.body);
 
     // Simulate Loading
     const loader = document.getElementById('loader');

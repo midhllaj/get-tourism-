@@ -541,7 +541,7 @@ export default class Services {
 
         // Mount Footer with reveal effect
         this.footer = new Footer();
-        this.footer.mount(container, { type: 'reveal' });
+        this.footer.mount(document.body, { type: 'reveal' });
     }
 
     unmount() {
