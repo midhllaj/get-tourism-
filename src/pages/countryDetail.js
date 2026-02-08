@@ -61,7 +61,7 @@ export default class CountryDetail {
             <style>
                 .country-page {
                     min-height: 100vh;
-                    background: #000;
+                    background: #fff;
                 }
 
                 /* Hero Section */
@@ -110,8 +110,8 @@ export default class CountryDetail {
                 .smooth-scroll-section {
                     position: relative;
                     padding: 10% 10% 20%;
-                    color: white;
-                    background: #000;
+                    color: #1a1a1a;
+                    background: #fff;
                     min-height: 200vh;
                 }
 
@@ -161,7 +161,7 @@ export default class CountryDetail {
 
                 .destination-item {
                     width: 100%;
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
                     display: flex;
                     justify-content: flex-end;
                     cursor: pointer;
@@ -175,7 +175,7 @@ export default class CountryDetail {
 
                 .destination-item h2 {
                     margin: 40px 0 20px;
-                    color: white;
+                    color: #1a1a1a;
                     text-transform: uppercase;
                     font-size: clamp(24px, 3vw, 60px);
                     font-family: "Instrument Serif", serif;
