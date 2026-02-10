@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import WorldMapDemo from '../components/WorldMapDemo.jsx';
+
 
 // Register ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
@@ -14,38 +14,52 @@ export default class Services {
         container.innerHTML = `
             <div class="services-page" style="width: 100%; position: relative; background-color: #fff; overflow-x: hidden;">
                 
-                <!-- Toggle Controls (Kept Absolute on top) -->
-                <div class="services-controls" style="position: fixed; top: 120px; left: 50%; transform: translateX(-50%); z-index: 100; display: flex; gap: 1rem;">
+                <!-- Toggle Controls removed - only showing Our Services now -->
+                <div class="services-controls" style="position: fixed; top: 120px; left: 50%; transform: translateX(-50%); z-index: 100; display: none;">
                     <button id="btn-our-services" class="service-toggle-btn active" style="padding: 10px 20px; border-radius: 30px; border: 1px solid rgba(0,0,0,0.2); background: #000; color: white; backdrop-filter: blur(10px); cursor: pointer; transition: all 0.3s ease;">
                         Our Services
-                    </button>
-                    <button id="btn-3d-experience" class="service-toggle-btn" style="padding: 10px 20px; border-radius: 30px; border: 1px solid rgba(0,0,0,0.2); background: transparent; color: rgba(0,0,0,0.6); backdrop-filter: blur(10px); cursor: pointer; transition: all 0.3s ease;">
-                        Interactive 3D Experience
                     </button>
                 </div>
 
                 <!-- Text Content View (New Intro + Services) -->
                 <div id="view-our-services" class="service-view" style="width: 100%; min-height: 100vh; position: relative; z-index: 10; background: white;">
                     
-                    <!-- NEW INTRO SECTION FROM TEMPLATE -->
+                    <!-- NEW HERO SECTION: 'Our Main Services' -->
+                    <section class="services-hero-collage" style="position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 4rem 2rem;">
+                        
+                        <!-- Background Image -->
+                        <img src="/assets/services/hero-bg.jpg" alt="Services Background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; filter: brightness(0.6);">
+
+                        <div class="collage-container" style="position: relative; width: 100%; max-width: 1200px; height: 80vh; display: flex; align-items: center; justify-content: center; z-index: 2;">
+                            
+                            <!-- Large Background Text/Title -->
+                            <h1 class="hero-title" style="position: relative; z-index: 10; text-align: center; font-family: 'League Spartan', sans-serif; font-weight: 800; font-size: clamp(3rem, 10vw, 8rem); line-height: 0.9; color: white; text-transform: uppercase;">
+                                Our<br>
+                                <span style="color: transparent; -webkit-text-stroke: 2px white;">Services</span>
+                            </h1>
+
+                        </div>
+                    </section>
+
+                    <!-- NEW INTRO SECTION FROM TEMPLATE (Existing) -->
                     <div class="services-scroll-slider">
-                        <section class="intro" style="display: block; padding: 0;">
-                            <div id="world-map-root" style="width: 100%;"></div>
-                        </section>
+
 
                         <section class="slider">
-                            <div class="slider-images">
-                                <!-- Images will be injected here via JS -->
-                            </div>
+                            <div class="slider-content">
+                                <div class="slider-title">
+                                    <h1>
+                                        <!-- Title will be injected here via JS -->
+                                    </h1>
+                                    <p class="slider-desc">
+                                        <!-- Description injected via JS -->
+                                    </p>
+                                    <a href="#" class="slider-btn" style="opacity: 0; pointer-events: none;">Explore More</a>
+                                </div>
 
-                            <div class="slider-title">
-                                <h1>
-                                    <!-- Title will be injected here via JS -->
-                                </h1>
-                                <p class="slider-desc">
-                                    <!-- Description injected via JS -->
-                                </p>
-                                <a href="#" class="slider-btn" style="opacity: 0; pointer-events: none;">Explore More</a>
+                                <div class="slider-images">
+                                    <!-- Images will be injected here via JS -->
+                                </div>
                             </div>
 
                             <div class="slider-indicator">
@@ -56,35 +70,87 @@ export default class Services {
                             </div>
                         </section>
 
-                        <section class="contact-outro" style="position: relative; overflow: hidden; min-height: 100vh; display: flex; align-items: center; justify-content: center; color: white;">
-                            <!-- Background & Clouds -->
-                            <div class="sky-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;">
-                                <img src="/assets/home page bg.jpg" alt="Sky" style="width: 100%; height: 100%; object-fit: cover;">
-                            </div>
-                            
-                            <div class="clouds-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;">
-                                <img src="/assets/cloud-left-1.png" class="cloud-anim-left" style="position: absolute; top: 10%; left: -10%; width: 50%; opacity: 0.8;">
-                                <img src="/assets/cloud-right-1.png" class="cloud-anim-right" style="position: absolute; top: 30%; right: -10%; width: 55%; opacity: 0.7;">
-                                <img src="/assets/cloud-left-1.png" class="cloud-anim-left-slow" style="position: absolute; bottom: 10%; left: -20%; width: 60%; opacity: 0.6;">
+                        <section class="contact-outro" style="position: relative; overflow: hidden; min-height: 100vh; display: flex; align-items: center; justify-content: flex-start; background: #000;">
+                            <!-- Background Image -->
+                            <div class="contact-bg-image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;">
+                                <img src="/assets/services/contact-bg.jpg" alt="Man standing on cliff" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6);">
                             </div>
 
-                            <!-- Contact Content -->
-                            <div class="contact-content glass" style="position: relative; z-index: 2; width: 100%; max-width: 600px; padding: 3rem; border-radius: 20px; background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); text-align: center;">
-                                <h2 style="font-family: 'Inter', sans-serif; font-size: 0.9rem; letter-spacing: 2px; color: #fbbf24; margin-bottom: 1rem; text-transform: uppercase;">Get in Touch</h2>
-                                <h1 style="font-family: 'Instrument Serif', serif; font-size: 3.5rem; margin-bottom: 2rem; line-height: 1.1;">Start Your Journey</h1>
+                            <!-- Contact Content Container -->
+                            <div class="contact-content-wrapper" style="position: relative; z-index: 2; width: 100%; max-width: 1400px; margin: 0 auto; padding: 4rem 2rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 4rem; flex-wrap: wrap;">
                                 
-                                <form id="service-contact-form" style="display: flex; flex-direction: column; gap: 1.5rem; text-align: left;">
-                                    <div class="form-group">
-                                        <input type="text" placeholder="Your Name" style="width: 100%; padding: 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 5px; outline: none; font-family: 'Inter', sans-serif;">
+                                <!-- Left Side: Heading and Contact Info -->
+                                <div style="flex: 1; min-width: 300px;">
+                                    <!-- Main Heading -->
+                                    <h1 class="contact-main-heading" style="font-family: 'League Spartan', sans-serif; font-weight: 800; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.1; color: white; text-transform: uppercase; margin-bottom: 3rem; letter-spacing: 2px;">
+                                        KEEP<br>CONNECTED<br>WITH US
+                                    </h1>
+
+                                    <!-- Contact Info Box - iOS 26 Theme -->
+                                    <div class="contact-info-box" style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); padding: 2.5rem 3rem; max-width: 500px; border-radius: 28px; color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3);">
+                                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+                                            <!-- Phone -->
+                                            <div class="contact-item">
+                                                <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 1.5px; color: rgba(255, 255, 255, 0.7);">PHONE:</h3>
+                                                <p style="font-family: 'Montserrat', sans-serif; font-size: 1rem; margin: 0; color: #fff; font-weight: 500;">+123-456-7890</p>
+                                            </div>
+
+                                            <!-- Address -->
+                                            <div class="contact-item">
+                                                <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 1.5px; color: rgba(255, 255, 255, 0.7);">ADDRESS:</h3>
+                                                <p style="font-family: 'Montserrat', sans-serif; font-size: 1rem; margin: 0; color: #fff; line-height: 1.4; font-weight: 500;">123 Anywhere St., Any City, ST 12345</p>
+                                            </div>
+
+                                            <!-- Email -->
+                                            <div class="contact-item">
+                                                <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 1.5px; color: rgba(255, 255, 255, 0.7);">EMAIL:</h3>
+                                                <p style="font-family: 'Montserrat', sans-serif; font-size: 1rem; margin: 0; color: #fff; font-weight: 500;">hello@reallygreatsite.com</p>
+                                            </div>
+
+                                            <!-- Website -->
+                                            <div class="contact-item">
+                                                <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 1.5px; color: rgba(255, 255, 255, 0.7);">WEBSITE:</h3>
+                                                <p style="font-family: 'Montserrat', sans-serif; font-size: 1rem; margin: 0; color: #fff; font-weight: 500;">www.reallygreatsite.com</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="email" placeholder="Your Email" style="width: 100%; padding: 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 5px; outline: none; font-family: 'Inter', sans-serif;">
-                                    </div>
-                                    <div class="form-group">
-                                        <textarea rows="3" placeholder="Tell us about your trip..." style="width: 100%; padding: 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 5px; outline: none; font-family: 'Inter', sans-serif; resize: none;"></textarea>
-                                    </div>
-                                    <button type="submit" style="padding: 1rem; background: #fbbf24; color: black; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; border: none; border-radius: 5px; cursor: pointer; transition: transform 0.2s ease;">Send Enquiry</button>
-                                </form>
+                                </div>
+
+                                <!-- Right Side: Client Information Form - iOS 26 Theme -->
+                                <div class="client-form-container" style="flex: 1; min-width: 350px; max-width: 500px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); padding: 3rem; border-radius: 28px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.5); border: 1px solid rgba(255, 255, 255, 0.3);">
+                                    <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.5rem; text-transform: uppercase; margin-bottom: 2rem; color: #1d1d1f; letter-spacing: 0.5px;">Get in Touch</h2>
+                                    
+                                    <form id="client-contact-form" style="display: flex; flex-direction: column; gap: 1.25rem;">
+                                        <!-- Name Input -->
+                                        <div class="form-group">
+                                            <label style="font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 600; color: #1d1d1f; margin-bottom: 0.5rem; display: block;">Name</label>
+                                            <input type="text" placeholder="Your Name" required style="width: 100%; padding: 1rem 1.25rem; background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 0, 0, 0.1); color: #1d1d1f; border-radius: 14px; outline: none; font-family: 'Montserrat', sans-serif; font-size: 1rem; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);">
+                                        </div>
+
+                                        <!-- Phone Input -->
+                                        <div class="form-group">
+                                            <label style="font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 600; color: #1d1d1f; margin-bottom: 0.5rem; display: block;">Phone</label>
+                                            <input type="tel" placeholder="Your Phone Number" required style="width: 100%; padding: 1rem 1.25rem; background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 0, 0, 0.1); color: #1d1d1f; border-radius: 14px; outline: none; font-family: 'Montserrat', sans-serif; font-size: 1rem; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);">
+                                        </div>
+
+                                        <!-- Email Input -->
+                                        <div class="form-group">
+                                            <label style="font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 600; color: #1d1d1f; margin-bottom: 0.5rem; display: block;">Email</label>
+                                            <input type="email" placeholder="Your Email" required style="width: 100%; padding: 1rem 1.25rem; background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 0, 0, 0.1); color: #1d1d1f; border-radius: 14px; outline: none; font-family: 'Montserrat', sans-serif; font-size: 1rem; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);">
+                                        </div>
+
+                                        <!-- Message Input -->
+                                        <div class="form-group">
+                                            <label style="font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 600; color: #1d1d1f; margin-bottom: 0.5rem; display: block;">Message</label>
+                                            <textarea rows="4" placeholder="Tell us about your requirements..." style="width: 100%; padding: 1rem 1.25rem; background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 0, 0, 0.1); color: #1d1d1f; border-radius: 14px; outline: none; font-family: 'Montserrat', sans-serif; font-size: 1rem; resize: vertical; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);"></textarea>
+                                        </div>
+
+                                        <!-- Submit Button -->
+                                        <button type="submit" style="padding: 1rem 1.5rem; background: linear-gradient(135deg, #007AFF 0%, #0051D5 100%); color: white; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border: none; border-radius: 14px; cursor: pointer; transition: all 0.3s ease; font-family: 'Montserrat', sans-serif; font-size: 1rem; box-shadow: 0 4px 16px rgba(0, 122, 255, 0.3); margin-top: 0.5rem;">Send Message</button>
+                                    </form>
+                                </div>
+
+
                             </div>
                         </section>
                     </div>
@@ -114,202 +180,14 @@ export default class Services {
                 </div>
             </div>
 
-            <style>
-                /* TEMPLATE STYLES IMPORTED */
-                .services-scroll-slider {
-                    color: black;
-                }
-                .intro, .outro {
-                    padding: 4rem 2rem;
-                    min-height: 100vh;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    background-color: #fff;
-                    color: #000;
-                    text-align: center;
-                }
-                .intro h1, .outro h1 {
-                    font-size: 2.5rem; /* Adjusted roughly */
-                    font-weight: 400;
-                    width: 60%;
-                    max-width: 800px;
-                    line-height: 1.4;
-                    font-family: 'Instrument Serif', serif;
-                }
-
-                .slider {
-                    position: relative;
-                    width: 100%;
-                    height: 100vh;
-                    overflow: hidden;
-                    background: #fff;
-                }
-
-                .slider-images {
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                }
-                /* Dark overlay for text readability */
-                .slider-images::after {
-                    content: "";
-                    position: absolute;
-                    top: 0; left: 0; width: 100%; height: 100%;
-                    background-color: rgba(0, 0, 0, 0.35);
-                }
-                .slider-images img {
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    transform-origin: center;
-                    will-change: transform, opacity;
-                }
-
-                .slider-title {
-                    position: absolute;
-                    top: 50%;
-                    left: 5%;
-                    transform: translateY(-50%);
-                    width: 60%;
-                    color: #fff;
-                    z-index: 2;
-                }
-                .slider-title h1 {
-                    font-family: 'Instrument Serif', serif;
-                    font-size: 4rem;
-                    line-height: 1.1;
-                    margin-bottom: 1rem;
-                    color: #ffffff; /* As requested per previous theme changes */
-                }
-                .slider-title p {
-                    font-family: 'Inter', sans-serif;
-                    font-size: 1rem;
-                    line-height: 1.6;
-                    margin-bottom: 2rem;
-                    max-width: 600px;
-                    opacity: 0.9;
-                }
-                .slider-btn {
-                    display: inline-block; 
-                    padding: 12px 35px; 
-                    background: white; 
-                    color: black; 
-                    border-radius: 50px; 
-                    font-weight: 500; 
-                    text-decoration: none; 
-                    transition: transform 0.3s ease;
-                }
-                .slider-btn:hover {
-                    transform: scale(1.05);
-                }
-
-                .slider-indicator {
-                    position: absolute;
-                    top: 50%;
-                    right: 2rem;
-                    transform: translateY(-50%);
-                    z-index: 2;
-                }
-
-                .slider-indices {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 1rem;
-                    padding: 1rem 1.25rem;
-                }
-                .slider-indices p {
-                    display: flex;
-                    align-items: center;
-                    gap: 1rem;
-                    color: #fff;
-                    font-family: 'Inter', monospace;
-                    font-size: 0.85rem;
-                    margin: 0;
-                }
-
-                .index {
-                    position: relative;
-                    width: 1.25rem;
-                    display: flex;
-                    justify-content: flex-end;
-                }
-                .marker {
-                    position: relative;
-                    width: 0.75rem;
-                    height: 1px;
-                    background-color: #fff;
-                    transform-origin: right;
-                    transform: scaleX(0);
-                }
-
-                .slider-progress-bar {
-                    position: absolute;
-                    top: 0; right: 0;
-                    width: 1px; height: 100%;
-                    background-color: rgba(255, 255, 255, 0.35);
-                }
-                .slider-progress {
-                    position: absolute;
-                    top: 0; left: 50%;
-                    transform: translateX(-50%) scaleY(0);
-                    width: 3px; height: 100%;
-                    background-color: #fff;
-                    transform-origin: top;
-                }
-
-                @media (max-width: 1000px) {
-                    .slider-title {
-                        width: 90%;
-                        left: 5%;
-                        font-size: 0.8em;
-                    }
-                    .intro h1, .outro h1 {
-                        width: 90%;
-                        font-size: 2rem;
-                    }
-                }
-                
-                /* Cloud Animations for Contact Outro */
-                @keyframes floatLeft {
-                    0% { transform: translateX(0); }
-                    50% { transform: translateX(30px); }
-                    100% { transform: translateX(0); }
-                }
-                @keyframes floatRight {
-                    0% { transform: translateX(0); }
-                    50% { transform: translateX(-30px); }
-                    100% { transform: translateX(0); }
-                }
-                @keyframes floatSlow {
-                    0% { transform: translateX(0) scale(1.1); }
-                    50% { transform: translateX(20px) scale(1.15); }
-                    100% { transform: translateX(0) scale(1.1); }
-                }
-
-                .cloud-anim-left {
-                    animation: floatLeft 20s ease-in-out infinite;
-                }
-                .cloud-anim-right {
-                    animation: floatRight 25s ease-in-out infinite;
-                }
-                .cloud-anim-left-slow {
-                    animation: floatSlow 30s ease-in-out infinite;
-                }
-            </style>
+            <link rel="stylesheet" href="/services.css" />
         `;
 
         // Initialize Globe
         const globeContainer = container.querySelector('.globe-container');
         this.globe = new Globe(globeContainer);
 
-        // Mount React WorldMap
-        const mapRoot = container.querySelector('#world-map-root');
-        if (mapRoot) {
-            this.reactRoot = createRoot(mapRoot);
-            this.reactRoot.render(React.createElement(WorldMapDemo));
-        }
+
 
         // --- SLIDER LOGIC ---
         const initSlider = () => {
@@ -320,20 +198,23 @@ export default class Services {
                 {
                     title: "Tour Package",
                     description: "Experience the essence of each destination through our meticulously designed tour packages. Explore the iconic attractions while also delving into the hidden gems that make each place truly special. Whether it’s a Dubai city tour with all excursions or a journey to the exotic landscapes of Kerala, our packages ensure a holistic and immersive travel experience.<br><br>Our tour packages are not generic itineraries but carefully crafted experiences. We invest time and effort into curating every detail, from the destinations you’ll visit to the activities you’ll partake in. This meticulous planning ensures that you get the most out of your trip.",
-                    image: "/assets/services/tour-package-hiking.png",
-                    link: "#/destinations"
+                    image: "/assets/services/tour-packages.jpg",
+                    link: "#/destinations",
+                    linkColor: "#007AFF" // Custom color property
                 },
                 {
                     title: "Visit Visas",
                     description: "Navigating travel requirements can be complex, which is why we simplify the process of obtaining visit visas. Trust us to handle the necessary paperwork and ensure a smooth travel experience.<br><br>Our visa acquisition services are designed to simplify the often complex and time-consuming process of obtaining visit visas. We bring expertise, efficiency, and a commitment to your convenience, so you can confidently embark on your journey, knowing that the necessary documentation has been handled with care and professionalism. Your peace of mind is our priority, and we aim to make your travel dreams a reality.",
-                    image: "/assets/services/visit-visas-8k.png",
-                    link: "#/contact"
+                    image: "/assets/services/visit-visas.jpg",
+                    link: "#/contact",
+                    linkColor: "#007AFF"
                 },
                 {
                     title: "Air Tickets",
                     description: "Seamlessly connect to your desired destinations with our air ticket booking services. We offer convenience, flexibility, and competitive prices to ensure your journey starts off on the right foot.<br><br>We understand that the beginning of your trip often starts with booking the right flights. Our services are built to seamlessly connect you to your desired destinations. We prioritize efficiency, ensuring that you can easily find and book flights to various destinations around the world.",
-                    image: "/assets/services/air-tickets-8k.png",
-                    link: "#/contact"
+                    image: "/assets/services/air-tickets.jpg",
+                    link: "#/contact",
+                    linkColor: "#007AFF"
                 },
 
 
@@ -428,6 +309,12 @@ export default class Services {
 
                         if (slides[index].link) {
                             existingBtn.href = slides[index].link;
+                            // Apply custom color if exists, else default to black text on white bg
+                            if (slides[index].linkColor) {
+                                existingBtn.style.color = slides[index].linkColor;
+                            } else {
+                                existingBtn.style.color = 'black';
+                            }
                             gsap.to(existingBtn, { opacity: 1, pointerEvents: 'auto', duration: 0.3 });
                         } else {
                             gsap.to(existingBtn, { opacity: 0, pointerEvents: 'none', duration: 0.3 });
@@ -469,6 +356,9 @@ export default class Services {
 
             if (slides[0].link) {
                 btnEl.href = slides[0].link;
+                if (slides[0].linkColor) {
+                    btnEl.style.color = slides[0].linkColor;
+                }
                 btnEl.style.opacity = "1";
                 btnEl.style.pointerEvents = "auto";
             } else {
@@ -501,58 +391,98 @@ export default class Services {
 
         // --- END SLIDER LOGIC ---
 
-        // Event Listeners for Toggle
+        // Event Listeners for Toggle (3D Experience is now a separate page, so only keep Our Services button)
         const btnOurServices = container.querySelector('#btn-our-services');
-        const btn3dExperience = container.querySelector('#btn-3d-experience');
-        const viewOurServices = container.querySelector('#view-our-services');
-        const view3dExperience = container.querySelector('#view-3d-experience');
+        // btn3dExperience is now a link, no event listener needed
 
-        const setActive = (is3d) => {
-            if (is3d) {
-                btn3dExperience.style.background = '#000';
-                btn3dExperience.style.color = 'white';
-                btnOurServices.style.background = 'transparent';
-                btnOurServices.style.color = 'rgba(0,0,0,0.6)';
 
-                view3dExperience.style.opacity = '1';
-                view3dExperience.style.pointerEvents = 'auto';
+        // Scroll Direction Listener for Controls Visibility
+        let lastScrollTop = 0;
+        const controls = container.querySelector('.services-controls');
 
-                viewOurServices.style.opacity = '0';
-                viewOurServices.style.pointerEvents = 'none';
+        const handleScroll = () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                // Downscroll - Fade out
+                gsap.to(controls, { opacity: 0, duration: 0.3, ease: "power2.out", pointerEvents: 'none' });
             } else {
-                btnOurServices.style.background = '#000';
-                btnOurServices.style.color = 'white';
-                btn3dExperience.style.background = 'transparent';
-                btn3dExperience.style.color = 'rgba(0,0,0,0.6)';
-
-                viewOurServices.style.opacity = '1';
-                viewOurServices.style.pointerEvents = 'auto';
-
-                view3dExperience.style.opacity = '0';
-                view3dExperience.style.pointerEvents = 'none';
-
-                // Refresh scrolltrigger when switching back to services view
-                ScrollTrigger.refresh();
+                // Upscroll - Fade in
+                gsap.to(controls, { opacity: 1, duration: 0.3, ease: "power2.out", pointerEvents: 'auto' });
             }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
         };
 
-        btnOurServices.addEventListener('click', () => setActive(false));
-        btn3dExperience.addEventListener('click', () => setActive(true));
+        window.addEventListener('scroll', handleScroll);
+        this.scrollHandler = handleScroll; // Store ref for cleanup
 
         // Mount Footer with reveal effect
         this.footer = new Footer();
         this.footer.mount(document.body, { type: 'reveal' });
+
+        // --- Animations for Collage Hero ---
+        const collageSection = container.querySelector('.services-hero-collage');
+        if (collageSection) {
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: collageSection,
+                    start: 'top center',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+
+            tl.from(collageSection.querySelector('.hero-title'), {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: 'power3.out'
+            })
+                .from(collageSection.querySelector('.img-1'), {
+                    y: -50,
+                    opacity: 0,
+                    rotation: 0,
+                    duration: 0.8,
+                    ease: 'back.out(1.7)'
+                }, '-=0.5')
+                .from(collageSection.querySelector('.img-2'), {
+                    y: 50,
+                    opacity: 0,
+                    rotation: 0,
+                    duration: 0.8,
+                    ease: 'back.out(1.7)'
+                }, '-=0.6');
+
+            // Parallax effect on scroll
+            gsap.to(collageSection.querySelector('.img-1'), {
+                y: -30,
+                scrollTrigger: {
+                    trigger: collageSection,
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true
+                }
+            });
+            gsap.to(collageSection.querySelector('.img-2'), {
+                y: -60,
+                scrollTrigger: {
+                    trigger: collageSection,
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true
+                }
+            });
+        }
     }
 
     unmount() {
         if (this.globe) {
             this.globe.destroy();
         }
-        if (this.reactRoot) {
-            this.reactRoot.unmount();
-        }
+
         if (this.sliderTrigger) {
             this.sliderTrigger.kill();
+        }
+        if (this.scrollHandler) {
+            window.removeEventListener('scroll', this.scrollHandler);
         }
         if (this.footer) {
             this.footer.destroy();

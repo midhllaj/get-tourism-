@@ -16,11 +16,18 @@ export default class CountryDetail {
             return;
         }
 
-        // Combine highlights and activities for the list
+        // Combine highlights and activities, removing duplicates
+        const highlights = this.data.highlights || [];
+        const activities = this.data.activities || [];
+
         const allItems = [
-            ...(this.data.highlights || []),
-            ...(this.data.activities || [])
-        ];
+            ...highlights,
+            ...activities
+        ].filter((item, index, self) =>
+            index === self.findIndex((t) => (
+                t.title === item.title
+            ))
+        );
 
         container.innerHTML = `
             <div class="country-page">
@@ -44,7 +51,11 @@ export default class CountryDetail {
                         <div class="text-column">
                             <p>${this.data.description}</p>
                         </div>
-                        <div class="text-column text-column-small">
+                    </div>
+                    <div class="content-wrapper" style="margin-top: -390px;">
+                        <div style="width: 40%;"></div>
+                        <div class="text-column text-column-small" style="flex-direction: column; align-items: flex-start; width: 55%;">
+                            <h2 style="font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: #1a1a1a; margin-bottom: 0.5rem;">Why Us</h2>
                             <p>${this.data.whyUs || 'Discover unforgettable experiences with personalized service and exclusive access to the best attractions.'}</p>
                         </div>
                     </div>
@@ -57,170 +68,15 @@ export default class CountryDetail {
                         `).join('')}
                     </div>
                 </section>
+
+                <section class="contact-section">
+                    <div class="contact-content">
+                        <h2>Contact for more details</h2>
+                        <a href="/contact" class="contact-btn">Enquire Now</a>
+                    </div>
+                </section>
             </div>
-            <style>
-                .country-page {
-                    min-height: 100vh;
-                    background: #fff;
-                }
-
-                /* Hero Section */
-                .country-hero {
-                    position: relative;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    min-height: 100vh;
-                    color: white;
-                    text-align: center;
-                }
-
-                .hero-bg {
-                    position: absolute;
-                    inset: 0;
-                    z-index: 0;
-                }
-
-                .hero-bg img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-
-                .hero-bg .overlay {
-                    position: absolute;
-                    inset: 0;
-                    background: rgba(0, 0, 0, 0.4);
-                }
-
-                .hero-content {
-                    position: relative;
-                    z-index: 1;
-                }
-
-                .hero-tagline {
-                    font-size: 1.5rem;
-                    margin-top: 1rem;
-                    color: var(--gold);
-                    font-family: "Instrument Serif", serif;
-                    font-style: italic;
-                }
-
-                /* Smooth Scroll Section */
-                .smooth-scroll-section {
-                    position: relative;
-                    padding: 10% 10% 20%;
-                    color: #1a1a1a;
-                    background: #fff;
-                    min-height: 200vh;
-                }
-
-                .content-wrapper {
-                    display: flex;
-                    justify-content: space-between;
-                    gap: 5%;
-                    height: 700px;
-                    margin-bottom: 100px;
-                }
-
-                .pinned-image {
-                    position: relative;
-                    width: 40%;
-                    height: 100%;
-                    overflow: hidden;
-                    border-radius: 12px;
-                }
-
-                .pinned-image img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    transition: opacity 0.3s ease;
-                }
-
-                .text-column {
-                    display: flex;
-                    width: 20%;
-                    height: 100%;
-                    font-size: clamp(14px, 1.6vw, 24px);
-                    line-height: 1.6;
-                    align-items: flex-start;
-                }
-
-                .text-column-small {
-                    font-size: clamp(12px, 1vw, 18px);
-                    opacity: 0.8;
-                    align-items: flex-end;
-                }
-
-                /* Destinations List */
-                .destinations-list {
-                    display: flex;
-                    flex-direction: column;
-                }
-
-                .destination-item {
-                    width: 100%;
-                    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-                    display: flex;
-                    justify-content: flex-end;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                }
-
-                .destination-item:hover {
-                    opacity: 0.6;
-                    padding-right: 20px;
-                }
-
-                .destination-item h2 {
-                    margin: 40px 0 20px;
-                    color: #1a1a1a;
-                    text-transform: uppercase;
-                    font-size: clamp(24px, 3vw, 60px);
-                    font-family: "Instrument Serif", serif;
-                    font-weight: 400;
-                    cursor: pointer;
-                }
-
-                /* Responsive Design */
-                @media (max-width: 1000px) {
-                    .smooth-scroll-section {
-                        padding: 10%;
-                        min-height: auto;
-                    }
-                    
-                    .content-wrapper {
-                        flex-direction: column;
-                        height: auto;
-                    }
-
-                    .pinned-image,
-                    .text-column {
-                        width: 100%;
-                        margin-bottom: 2rem;
-                    }
-
-                    .text-column,
-                    .text-column-small {
-                        font-size: 1rem;
-                        align-items: flex-start;
-                    }
-
-                    .destination-item {
-                        justify-content: flex-start;
-                    }
-
-                    .destination-item:hover {
-                        padding-left: 20px;
-                        padding-right: 0;
-                    }
-
-                    .destination-item h2 {
-                        font-size: 8vw;
-                    }
-                }
-            </style>
+            <link rel="stylesheet" href="/countryDetail.css" />
         `;
 
         // Initialize GSAP ScrollTrigger
@@ -235,17 +91,23 @@ export default class CountryDetail {
             trigger: this.imageContainer,
             pin: true,
             start: "top 100px",
-            end: () => `+=${scrollSection.offsetHeight - 800}`,
+            endTrigger: scrollSection,
+            end: "bottom bottom",
             pinSpacing: false
         });
 
-        // Add hover listeners for image switching
+        // Add hover and touch listeners for image switching
         const destinationItems = container.querySelectorAll('.destination-item');
         destinationItems.forEach((item) => {
-            item.addEventListener('mouseenter', () => {
+            const handleInteraction = () => {
                 const index = parseInt(item.dataset.index);
                 this.changeImage(index, allItems);
-            });
+            };
+
+            // Support both mouse and touch interactions
+            item.addEventListener('mouseenter', handleInteraction);
+            item.addEventListener('click', handleInteraction);
+            item.addEventListener('touchstart', handleInteraction, { passive: true });
         });
 
         // Mount Footer

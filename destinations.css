@@ -1,0 +1,91 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.destination-card {
+    display: block;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 400px;
+    text-decoration: none;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    transition: opacity 0.3s ease;
+}
+
+.destination-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.card-content {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    z-index: 2;
+    color: white;
+}
+
+.card-content h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.explore-btn {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    padding: 8px 20px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.destination-card:hover .explore-btn {
+    background: white;
+    color: black;
+}
+
+/* Override global section styles */
+.intro-section,
+.destinations-grid-section {
+    height: auto !important;
+    overflow: visible !important;
+}
