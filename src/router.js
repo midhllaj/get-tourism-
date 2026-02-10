@@ -4,7 +4,6 @@ import About from './pages/about.js';
 import Contact from './pages/contact.js';
 import Destinations from './pages/destinations.js'; // Placeholder
 import CountryDetail from './pages/countryDetail.js';
-import GlobePage from './pages/globe.jsx';
 
 class Router {
     constructor() {
@@ -14,8 +13,7 @@ class Router {
             '/services': Services,
             '/contact': Contact,
             '/destinations': Destinations,
-            '/country': CountryDetail, // Helper route, we will use query params
-            '/globe': GlobePage
+            '/country': CountryDetail // Helper route, we will use query params
         };
 
         this.app = document.getElementById('app');
@@ -84,6 +82,9 @@ class Router {
         } else if (path === '/contact') {
             title = "Contact Us | Great Escapes Tourism";
             desc = "Get in touch with Great Escapes Tourism. Start planning your dream vacation today.";
+        } else if (path === '/globe') {
+            title = "Interactive 3D Globe | Great Escapes Tourism";
+            desc = "Explore our global presence with an interactive 3D globe. Spin the globe to discover destinations worldwide.";
         } else if (path === '/country' && params.id) {
             // We'd ideally fetch real data here, but for now capitalized ID is fine as a fallback
             const name = params.id.charAt(0).toUpperCase() + params.id.slice(1);

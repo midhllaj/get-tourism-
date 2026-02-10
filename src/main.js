@@ -1,4 +1,4 @@
-import '../styles.css'; // Just in case, though it is linked in html
+// import '../styles.css'; // Just in case, though it is linked in html
 import Router from './router.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';

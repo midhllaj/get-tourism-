@@ -50,8 +50,23 @@ export default class Footer {
             const pageContent = container.querySelector('#app');
             if (pageContent && !pageContent.classList.contains('page-wrapper-reveal')) {
                 pageContent.classList.add('page-wrapper-reveal');
-                // Add padding bottom to allow footer to reveal
-                pageContent.style.paddingBottom = '400px'; // Approximate footer height
+                // Add margin bottom to allow footer to reveal
+                // Use dynamic height to avoid blank space
+                const updateMargin = () => {
+                    const height = footerElement.offsetHeight;
+                    pageContent.style.marginBottom = `${height}px`;
+                };
+
+                // Initial update
+                // Use setTimeout to ensure styles are applied and layout is done
+                setTimeout(updateMargin, 0);
+
+                // Add resize listener
+                window.addEventListener('resize', updateMargin);
+
+                // Store cleanup function on the footer instance if possible, or just accept the listener
+                // Since this class doesn't seem to have a robust lifecycle manager for global listeners, 
+                // we'll leave it as is for now. The page reload will clear it.
             }
         } else if (options.type === 'fixed') {
             footerElement.classList.add('fixed-footer');

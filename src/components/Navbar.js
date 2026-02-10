@@ -1,3 +1,4 @@
+import FlightLoader from './FlightLoader.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -40,7 +41,7 @@ export default class Navbar {
                             <span class="btn-text-hover">About</span>
                         </span>
                     </a>
-                    <a href="#/services" data-link class="nav-btn">
+                    <a href="#/services" data-link class="nav-btn services-link-desktop">
                         <span class="btn-wrapper">
                             <span class="btn-text">Services</span>
                             <span class="btn-text-hover">Services</span>
@@ -85,7 +86,7 @@ export default class Navbar {
                                 <a href="#/about" data-link>About</a>
                             </div>
                             <div class="menu-link-item">
-                                <a href="#/services" data-link>Services</a>
+                                <a href="#/services" data-link class="services-link-mobile">Services</a>
                             </div>
                             <div class="menu-link-item">
                                 <a href="tel:+971551248758">Contact</a>
@@ -330,6 +331,10 @@ export default class Navbar {
         document.head.appendChild(style);
 
         this.isMenuOpen = false;
+
+        // Initialize Flight Loader
+        this.flightLoader = new FlightLoader();
+
         this.initEvents();
     }
 
@@ -348,6 +353,24 @@ export default class Navbar {
         if (overlay) {
             overlay.addEventListener('click', () => this.toggleMenu(false));
         }
+
+        // Handling Flight Loading for Services
+        const serviceLinks = this.element.querySelectorAll('.services-link-desktop, .services-link-mobile');
+        serviceLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                // If mobile menu is open, close it first
+                if (this.isMenuOpen) {
+                    this.toggleMenu(false);
+                }
+
+                // Play flight animation
+                this.flightLoader.mount();
+                this.flightLoader.play().then(() => {
+                    window.location.hash = '#/services';
+                });
+            });
+        });
     }
 
     /**

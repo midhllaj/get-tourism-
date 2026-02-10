@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { World } from "@/components/ui/globe";
+import { countries } from "@/data/countries";
 
 export default function GlobeDemo() {
     const globeConfig = {
@@ -25,6 +26,22 @@ export default function GlobeDemo() {
         autoRotateSpeed: 0.5,
     };
     const colors = ["#06b6d4", "#3b82f6", "#6366f1"];
+    const colList = Object.values(countries);
+
+    // Create markers from countries data
+    const markers = colList.map(country => ({
+        lat: country.lat,
+        lng: country.lon,
+        label: country.name,
+        iso: country.iso
+    }));
+
+    // Keep some sample arcs for visual effect, but maybe reduce them or make them random
+    // For now, I'll keep the existing sampleArcs to maintain the "globe" look, 
+    // but the key requirement is to change the DOTS to FLAGS.
+    // The dots in the original code were derived from arcs. 
+    // I will pass `markers` explicitly to World.
+
     const sampleArcs = [
         {
             order: 1,
@@ -406,16 +423,15 @@ export default function GlobeDemo() {
                     className="div"
                 >
                     <h2 className="text-center text-xl md:text-4xl font-bold text-white">
-                        We sell soap worldwide
+                        Global Presence
                     </h2>
                     <p className="text-center text-base md:text-lg font-normal text-neutral-200 max-w-md mt-2 mx-auto">
-                        This globe is interactive and customizable. Have fun with it, and
-                        don&apos;t forget to share it. :)
+                        Spin the globe to find your next destination.
                     </p>
                 </motion.div>
                 <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent to-black z-40" />
                 <div className="absolute w-full -bottom-20 h-72 md:h-full z-10">
-                    <World data={sampleArcs} globeConfig={globeConfig} />
+                    <World data={sampleArcs} markers={markers} globeConfig={globeConfig} />
                 </div>
             </div>
         </div>

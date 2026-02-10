@@ -1,5 +1,5 @@
-"use client";
 import { useEffect, useRef, useState } from "react";
+import * as THREE from "three";
 import { Color, Scene, Fog, PerspectiveCamera, Vector3 } from "three";
 import ThreeGlobe from "three-globe";
 import { useThree, Canvas, extend } from "@react-three/fiber";
@@ -59,13 +59,14 @@ export type GlobeConfig = {
 interface WorldProps {
     globeConfig: GlobeConfig;
     data: Position[];
+    markers?: { lat: number; lng: number; label: string; iso: string }[];
 }
 
 let numbersOfRings = [0];
 
-export function Globe({ globeConfig, data }: WorldProps) {
+export function Globe({ globeConfig, data, markers }: WorldProps) {
     const globeRef = useRef<ThreeGlobe | null>(null);
-    const groupRef = useRef();
+    const groupRef = useRef<THREE.Group>(null!);
     const [isInitialized, setIsInitialized] = useState(false);
 
     const defaultProps = {
@@ -175,11 +176,50 @@ export function Globe({ globeConfig, data }: WorldProps) {
             .arcDashAnimateTime(() => defaultProps.arcTime);
 
         globeRef.current
-            .pointsData(filteredPoints)
+            .pointsData([]) // Explicitly clear points
             .pointColor((e) => (e as { color: string }).color)
             .pointsMerge(true)
             .pointAltitude(0.0)
             .pointRadius(2);
+
+        // Custom Layer for Flags
+        if (markers) {
+            console.log("Rendering markers:", markers);
+            globeRef.current
+                .customLayerData(markers)
+                .customThreeObject((d: any) => {
+                    console.log("Creating sprite for:", d.iso);
+                    const loader = new THREE.TextureLoader();
+                    const texture = loader.load(`https://flagcdn.com/w80/${d.iso.toLowerCase()}.png`);
+
+                    const material = new THREE.SpriteMaterial({ map: texture });
+                    const sprite = new THREE.Sprite(material);
+
+                    // Scale the flag specifically
+                    sprite.scale.set(6, 4, 1); // Width: 6, Height: 4 (approx flag aspect ratio)
+                    // Slightly raise the flag above the globe surface
+                    sprite.position.y = 2;
+
+                    // Add a label/tooltip if needed? For now just the flag.
+                    return sprite;
+                })
+                .customThreeObjectUpdate((obj: any, d: any) => {
+                    // Update position based on lat/lng
+                    const lat = d.lat;
+                    const lng = d.lng;
+                    const altitude = 0.01; // Slightly above surface
+
+                    const phi = (90 - lat) * (Math.PI / 180);
+                    const theta = (lng + 180) * (Math.PI / 180);
+                    const radius = 100 * (1 + altitude);
+
+                    obj.position.set(
+                        radius * Math.sin(phi) * Math.cos(theta),
+                        radius * Math.cos(phi),
+                        radius * Math.sin(phi) * Math.sin(theta)
+                    );
+                });
+        }
 
         globeRef.current
             .ringsData([])
@@ -192,6 +232,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
     }, [
         isInitialized,
         data,
+        markers, // Add dependency
         defaultProps.pointSize,
         defaultProps.showAtmosphere,
         defaultProps.atmosphereColor,
