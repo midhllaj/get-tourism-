@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = new Navbar();
     navbar.mount(document.body);
 
-    const router = new Router(navbar);
+    const router = new Router(navbar, lenis);
     router.init();
 
     // Footer initialization removed

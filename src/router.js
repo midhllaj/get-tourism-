@@ -6,7 +6,7 @@ import Destinations from './pages/destinations.js'; // Placeholder
 import CountryDetail from './pages/countryDetail.js';
 
 class Router {
-    constructor(navbar) {
+    constructor(navbar, lenis) {
         this.routes = {
             '/': Home,
             '/about': About,
@@ -18,6 +18,7 @@ class Router {
 
         this.app = document.getElementById('app');
         this.navbar = navbar;
+        this.lenis = lenis;
         this.currentRoute = null;
     }
 
@@ -39,6 +40,13 @@ class Router {
 
         // SWITCHING TO HASH ROUTER FOR STABILITY
         let path = window.location.hash.slice(1) || '/';
+
+        // Scroll to top on route change
+        if (this.lenis) {
+            this.lenis.scrollTo(0, { immediate: true });
+        } else {
+            window.scrollTo(0, 0);
+        }
 
         // Handle params (e.g., /country/dubai -> /country and id=dubai)
         // For hash: #/country/dubai
@@ -62,7 +70,7 @@ class Router {
 
         if (this.navbar) {
             const isHome = path === '/';
-            this.navbar.setVisible(isHome);
+            this.navbar.setVisible(true); // Always visible
             this.navbar.setSolid(!isHome);
             if (!isHome) {
                 this.navbar.createGlobalTrigger();

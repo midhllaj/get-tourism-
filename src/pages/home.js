@@ -54,50 +54,137 @@ export default class Home {
                                 memories, forming connections, and expanding horizons. Our company was born out of a deep passion for 
                                 exploring the world and sharing those experiences with fellow travelers.
                             </p>
-                            <button class="enquire-btn">MORE</button>
                         </div>
                         <div class="about-logo-aside">
                             <img src="/assets/about%20us%20logo.png" alt="GET Logo" class="about-logo-img">
+                            <button class="enquire-btn">
+                                <span>MORE</span>
+                                <svg class="btn-arrow" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                                </svg>
+                            </button>
                         </div>
                     </div>
                 </section>
 
-                <section class="our-services">
-                    <div class="services-container">
-                        <div class="services-left">
-                            <h2 class="section-label">Our Section</h2>
-                            <h1 class="section-title">Our Services</h1>
+
+                <section class="featured-trips">
+                    <div class="featured-trips-container container">
+                        <div class="featured-trips-header">
+                            <h2 class="section-label">Explore</h2>
+                            <h1 class="section-title">Featured Trips</h1>
+                            <p class="section-subtitle">Discover our handpicked travel experiences</p>
                         </div>
-                        <div class="services-right">
-                            <div class="services-scroll">
-                                <div class="service-box" id="visit-visa">
-                                    <div class="box-inner">
-                                        <div class="box-content">
-                                            <h3>Visit Visa</h3>
-                                        </div>
-                                    </div>
+
+                        <div class="trips-grid trips-grid-two">
+                            <div class="trip-card trip-card-featured" data-destination="kerala">
+                                <div class="trip-image-wrapper">
+                                    <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800&q=80" alt="Kerala Backwaters" class="trip-image" />
+                                    <div class="trip-overlay"></div>
                                 </div>
-                                <div class="service-box" id="tour-packages">
-                                    <div class="box-inner">
-                                        <div class="box-content">
-                                            <h3>Tour Packages</h3>
-                                        </div>
+                                <div class="trip-content">
+                                    <div class="trip-header">
+                                        <h3 class="trip-name">Kerala</h3>
                                     </div>
+                                    <p class="trip-description">Experience the serene backwaters, lush tea plantations, and pristine beaches of God's Own Country.</p>
+                                    <button class="trip-cta">
+                                        <span>Explore Kerala</span>
+                                        <svg class="cta-arrow" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                                        </svg>
+                                    </button>
                                 </div>
-                                <div class="service-box" id="flight-tickets">
-                                    <div class="box-inner">
-                                        <div class="box-content">
-                                            <h3>Flight Tickets</h3>
-                                        </div>
+                            </div>
+
+                            <div class="trip-card trip-card-featured" data-destination="dubai">
+                                <div class="trip-image-wrapper">
+                                    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80" alt="Dubai Skyline" class="trip-image" />
+                                    <div class="trip-overlay"></div>
+                                </div>
+                                <div class="trip-content">
+                                    <div class="trip-header">
+                                        <h3 class="trip-name">Dubai</h3>
                                     </div>
+                                    <p class="trip-description">Discover luxury, innovation, and adventure in the jewel of the Middle East with iconic landmarks and world-class experiences.</p>
+                                    <button class="trip-cta">
+                                        <span>Explore Dubai</span>
+                                        <svg class="cta-arrow" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
                         </div>
+                        <div class="flex-center" style="margin-top: 1rem; width: 100%;">
+                            <button class="enquire-btn featured-more-btn">
+                                <span>MORE</span>
+                                <svg class="btn-arrow" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </section>
 
-                <section class="outro">
-                    <h1>Ready for your next adventure?</h1>
+                <section class="parallax-section">
+                    <div class="parallax-container">
+                        <video class="parallax-background" autoplay loop muted playsinline poster="/assets/pexels-paulsan-8479826.jpg">
+                            <source src="/assets/parallax bg.mp4" type="video/mp4">
+                        </video>
+                        <div class="parallax-content">
+                            <h2 class="parallax-title">Ready<br>for your next<br>adventure?</h2>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="our-services-new">
+                    <div class="services-header-home">
+                        <h1>Our Services</h1>
+                    </div>
+                    
+                    <div class="services-tiles-home">
+                        <div class="service-tile-home" id="visit-visa">
+                            <div class="tile-content-home">
+                                <h3>Visit Visa</h3>
+                                <p>Hassle-free visa processing for all destinations.</p>
+                            </div>
+                        </div>
+
+                        <div class="service-tile-home" id="tour-packages">
+                            <div class="tile-content-home">
+                                <h3>Tour Packages</h3>
+                                <p>Curated holiday packages tailored to your dreams.</p>
+                            </div>
+                        </div>
+
+                        <div class="service-tile-home" id="flight-tickets">
+                            <div class="tile-content-home">
+                                <h3>Flight Tickets</h3>
+                                <p>Best deals on flights to anywhere in the world.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="services-more-container">
+                        <button class="enquire-btn services-more-btn">
+                            <span>MORE</span>
+                            <svg class="btn-arrow" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </section>
+
+                <section class="why-choose-us">
+                    <div class="why-choose-container">
+                        <div class="why-choose-header">
+                            <h2 class="section-label">Why Choose Us</h2>
+                            <h1 class="section-title">More Than Just Travel, It's an Experience.</h1>
+                            <p class="section-text">
+                                At Great Escapes Tourism, we think that traveling is about more than simply seeing new places; it's also about making relationships, broadening one's horizons, and making memories. Our business was established as a result of a strong desire to explore the world and share those experiences with others. We are motivated by a desire to provide you with unmatched travel encounters that have a profound impact on your heart and spirit.
+                            </p>
+                        </div>
+                    </div>
                 </section>
 
                 <div class="cta-container">
@@ -120,6 +207,15 @@ export default class Home {
         this.footer = new Footer();
         this.footer.mount(container, { type: 'fixed' });
 
+        // Featured Trips CTA Event Listeners
+        const tripCtas = document.querySelectorAll('.trip-cta');
+        tripCtas.forEach(cta => {
+            cta.addEventListener('click', (e) => {
+                e.stopPropagation();
+                window.location.hash = '#/destinations';
+            });
+        });
+
         this.prepareTextReveal();
         this.initAnimations();
     }
@@ -134,10 +230,7 @@ export default class Home {
         const words = text.split(' ');
 
         container.innerHTML = words.map(word => `
-            <span class="word-wrapper">
-                <span class="word-base">${word}</span>
-                <span class="word-overlay">${word}</span>
-            </span>
+            <span class="word-wrapper">${word}</span>
         `).join('');
     }
 
@@ -198,6 +291,20 @@ export default class Home {
             });
         }
 
+        const featuredMoreBtn = document.querySelector('.featured-more-btn');
+        if (featuredMoreBtn) {
+            featuredMoreBtn.addEventListener('click', () => {
+                window.location.hash = '#/destinations';
+            });
+        }
+
+        const servicesMoreBtn = document.querySelector('.services-more-btn');
+        if (servicesMoreBtn) {
+            servicesMoreBtn.addEventListener('click', () => {
+                window.location.hash = '#/services';
+            });
+        }
+
         const tourPackagesBox = document.getElementById('tour-packages');
         if (tourPackagesBox) {
             tourPackagesBox.addEventListener('click', () => {
@@ -254,36 +361,6 @@ export default class Home {
                 // Sky Parallax
                 gsap.set(skyContainer, { y: -progress * skyMoveDistance });
 
-                // --- Text Reveal Animation (Opacity) ---
-                // We want to reveal faster: shorter range
-                const startReveal = 0.15; // Slightly later start
-                const endReveal = 0.7;   // Ends later for slower reveal
-
-                if (overlays.length > 0) {
-                    // Ensure we are strictly calculating opacity based on progress
-                    if (progress < startReveal) {
-                        gsap.set(overlays, { opacity: 0 });
-                    } else if (progress > endReveal) {
-                        gsap.set(overlays, { opacity: 1 });
-                    } else {
-                        const normalizedProgress = (progress - startReveal) / (endReveal - startReveal);
-                        const totalWords = overlays.length;
-                        const exactWordIndex = normalizedProgress * totalWords;
-
-                        overlays.forEach((overlay, index) => {
-                            const dist = exactWordIndex - index;
-                            if (dist > 0.5) {
-                                overlay.style.opacity = 1;
-                            } else if (dist < -0.5) {
-                                overlay.style.opacity = 0;
-                            } else {
-                                // Smooth transition for the current word
-                                overlay.style.opacity = Math.max(0, Math.min(1, dist + 0.5));
-                            }
-                        });
-                    }
-                }
-
                 // Navbar Transitions
                 if (navLogo) {
                     let logoOpacity = progress > 0.2 ? Math.min(1, (progress - 0.2) / 0.15) : 0;
@@ -292,8 +369,10 @@ export default class Home {
 
                 if (navLinks.length > 0) {
                     let t = progress > 0.2 ? Math.min(1, (progress - 0.2) / 0.15) : 0;
-                    let colorValue = Math.round(255 * (1 - t));
-                    gsap.set(navLinks, { color: `rgb(${colorValue}, ${colorValue}, ${colorValue})` });
+                    let r = Math.round(255 - (253 * t));
+                    let g = Math.round(255 - (231 * t));
+                    let b = Math.round(255 - (179 * t));
+                    gsap.set(navLinks, { color: `rgb(${r}, ${g}, ${b})` });
                 }
 
                 // CTA Position
@@ -309,42 +388,100 @@ export default class Home {
             },
         });
 
-        // Our Services Side Scroll
-        const servicesSection = document.querySelector('.our-services');
-        const servicesScroll = document.querySelector('.services-scroll');
-        const servicesRight = document.querySelector('.services-right');
+        // New Text Reveal Animation with Rotation, Blur, and Opacity
+        const revealContainer = document.querySelector('.reveal-text-container');
+        const wordWrappers = document.querySelectorAll('.word-wrapper');
 
-        if (servicesSection && servicesScroll && servicesRight) {
-            const boxes = servicesScroll.querySelectorAll('.service-box');
-            const scrollWidth = servicesScroll.scrollWidth;
-            const containerWidth = servicesRight.offsetWidth;
-            const xTranslation = -(scrollWidth - containerWidth);
+        if (revealContainer && wordWrappers.length > 0) {
+            // Container rotation animation
+            gsap.fromTo(
+                revealContainer,
+                {
+                    transformOrigin: '0% 50%',
+                    rotate: 3
+                },
+                {
+                    ease: 'none',
+                    rotate: 0,
+                    scrollTrigger: {
+                        trigger: revealContainer,
+                        start: 'top bottom',
+                        end: 'bottom center',
+                        scrub: 2
+                    }
+                }
+            );
 
+            // Word opacity animation with stagger
+            gsap.fromTo(
+                wordWrappers,
+                {
+                    opacity: 0.1,
+                    willChange: 'opacity, filter'
+                },
+                {
+                    ease: 'none',
+                    opacity: 1,
+                    stagger: 0.05,
+                    scrollTrigger: {
+                        trigger: revealContainer,
+                        start: 'top bottom-=20%',
+                        end: 'bottom center',
+                        scrub: 2
+                    }
+                }
+            );
+
+            // Word blur animation with stagger
+            gsap.fromTo(
+                wordWrappers,
+                { filter: 'blur(4px)' },
+                {
+                    ease: 'none',
+                    filter: 'blur(0px)',
+                    stagger: 0.05,
+                    scrollTrigger: {
+                        trigger: revealContainer,
+                        start: 'top bottom-=20%',
+                        end: 'bottom center',
+                        scrub: 2
+                    }
+                }
+            );
+        }
+
+
+        // Parallax Section Animation
+        const parallaxSection = document.querySelector('.parallax-section');
+        const parallaxBg = document.querySelector('.parallax-background');
+
+        if (parallaxSection && parallaxBg) {
             ScrollTrigger.create({
-                trigger: ".our-services",
-                start: "top top",
-                end: () => `+=${scrollWidth}`,
-                pin: true,
-                scrub: 1,
-                snap: boxes.length > 1 ? 1 / (boxes.length - 1) : null,
-                animation: gsap.to(servicesScroll, {
-                    x: xTranslation,
-                    ease: "none"
-                })
+                trigger: parallaxSection,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+                onUpdate: (self) => {
+                    gsap.set(parallaxBg, {
+                        y: -(self.progress * 100)
+                    });
+                }
             });
         }
 
         /* Refined CTA Locking Logic */
-        const outroText = document.querySelector('.outro h1');
-        if (ctaContainer && outroText) {
+        const whyChooseHeader = document.querySelector('.why-choose-header');
+        const whyChooseText = document.querySelector('.why-choose-header .section-text');
+        if (ctaContainer && whyChooseHeader && whyChooseText) {
             ScrollTrigger.create({
-                trigger: outroText,
-                start: "bottom 90%", // Lock exactly when the bottom of the text reaches the floating button (at 90vh)
+                trigger: whyChooseHeader,
+                start: "bottom bottom", // Lock when the header bottom reaches viewport bottom
                 onEnter: () => {
-                    // Lock button below text in outro
-                    const rect = outroText.getBoundingClientRect();
+                    // Lock button at the exact position where Enquire Now button was
+                    const rect = whyChooseText.getBoundingClientRect();
                     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    const absoluteTop = scrollTop + rect.bottom + 48; // 3rem gap (48px)
+                    // Position it centered, 3rem (48px) below the text (where the button was)
+                    const absoluteTop = scrollTop + rect.bottom + 48;
 
                     gsap.set(ctaContainer, {
                         position: "absolute",
@@ -379,19 +516,6 @@ export default class Home {
 
         /* Removed CTA Fade Out Logic as requested */
 
-        // About Us Logo Animation
-        gsap.from('.about-logo-aside', {
-            scrollTrigger: {
-                trigger: '.about-us',
-                start: 'top 60%',
-                toggleActions: 'play none none reverse'
-            },
-            x: 100,
-            opacity: 0,
-            duration: 1.2,
-            ease: 'power3.out'
-        });
-
         // Navbar Hide on Scroll Down - Restored specific logic for Home
         if (navbar) {
             ScrollTrigger.create({
@@ -409,7 +533,10 @@ export default class Home {
                 }
             });
         }
+
     }
+
+
 
     unmount() {
         ScrollTrigger.getAll().forEach(t => t.kill());

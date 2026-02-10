@@ -1,31 +1,29 @@
-# Update Button Colors to Footer Background
+# Implementation Plan - Adding Booking Detail Fields
 
-This plan updates all buttons that currently use black (or black-equivalent) colors to use the footer background color (`#0A94D9`).
+Enhance the contact form with specific detail boxes for all service types and improve the visual styling of these dynamic sections.
 
 ## Proposed Changes
 
-### Styles
-#### [MODIFY] [styles.css](file:///c:/Users/sayed/Downloads/get-tourism--main/get-tourism--main/styles.css)
-- Change `.enquire-btn` background from `var(--dark)` to `#0A94D9`.
-- Change `.enquire-btn:hover` background from `#333` to a slightly darker blue (e.g., `#087bb5`).
-- Change `.cta-button` text color from `#000` to `#0A94D9`.
-- Change `.cta-icon-circle` background from `#000` to `#0A94D9`.
-- Change `.navbar.solid .nav-btn` and `.navbar.solid .contact-info` color from `#000` to `#0A94D9`.
-- Change `.navbar.solid .burger-line` background-color from `#000` to `#0A94D9`.
+### [Contact Page](file:///c:/Users/sayed/Downloads/get-tourism--main/get-tourism--main/src/pages/contact.js)
 
-### Pages
 #### [MODIFY] [contact.js](file:///c:/Users/sayed/Downloads/get-tourism--main/get-tourism--main/src/pages/contact.js)
-- Change `.submit-btn` text color from `black` to `#0A94D9`.
+- Extend the `serviceSelect` event listener to handle `tour` and `other` service types.
+- For `tour`: Add fields for Destination, Travelers, and Date Range.
+- For `other`: Add a field to specify the service and additional details.
 
-#### [MODIFY] [countryDetail.js](file:///c:/Users/sayed/Downloads/get-tourism--main/get-tourism--main/src/pages/countryDetail.js)
-- Change inline style for `button.enquire-btn` text color from `black` to `#0A94D9`.
+### [Styles](file:///c:/Users/sayed/Downloads/get-tourism--main/get-tourism--main/styles.css)
+
+#### [MODIFY] [styles.css](file:///c:/Users/sayed/Downloads/get-tourism--main/get-tourism--main/styles.css)
+- Update `.dynamic-fields-container` to have:
+    - `background: rgba(2, 24, 76, 0.03)`
+    - `padding: 1.5rem`
+    - `border-radius: 12px`
+    - `border: 1px solid rgba(2, 24, 76, 0.1)`
+- This will make it look like a distinct "box" inside the form.
 
 ## Verification Plan
 
 ### Manual Verification
-1.  Open the website in the browser.
-2.  Scroll down to see the `.cta-button`. Verify the text and icon circle are now blue.
-3.  Scroll to the "About Us" section. Verify the "MORE" button is now blue.
-4.  Scroll until the navbar becomes solid. Verify the nav links and hamburger icon are now blue.
-5.  Navigate to the Contact page. Verify the "Send Enquiry" button text is now blue.
-6.  Navigate to a Country Detail page. Verify the "Book This Trip" button text is now blue.
+- Navigate to the Contact page.
+- Select each service type and verify that the correct "detail box" appears.
+- Confirm the new styling makes the dynamic fields look like a distinct section within the form.

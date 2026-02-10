@@ -34,40 +34,45 @@ export default class Navbar {
 
                 <!-- Desktop Left Links -->
                 <div class="nav-left desktop-only">
-                    <a href="#/about" data-link class="nav-btn">
+                    <a href="#/" data-link class="nav-btn featured-link">
                         <span class="btn-wrapper">
-                            <span class="btn-text">About</span>
-                            <span class="btn-text-hover">About</span>
+                            <span class="btn-text">Featured</span>
+                            <span class="btn-text-hover">Featured</span>
                         </span>
+                        <svg class="nav-arrow" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                        </svg>
                     </a>
                     <a href="#/services" data-link class="nav-btn">
                         <span class="btn-wrapper">
                             <span class="btn-text">Services</span>
                             <span class="btn-text-hover">Services</span>
                         </span>
+                        <svg class="nav-arrow" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                        </svg>
                     </a>
                 </div>
 
-                <!-- Desktop Right Contact -->
+                <!-- Desktop Right Links -->
                 <div class="nav-right desktop-only">
-                    <a href="tel:+971551248758" class="contact-info phone">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                        </svg>
+                    <a href="#/about" data-link class="nav-btn">
                         <span class="btn-wrapper">
-                            <span class="btn-text">+971 55 124 8758</span>
-                            <span class="btn-text-hover">+971 55 124 8758</span>
+                            <span class="btn-text">About</span>
+                            <span class="btn-text-hover">About</span>
                         </span>
+                        <svg class="nav-arrow" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                        </svg>
                     </a>
-                    <a href="mailto:info@gettourism.com" class="contact-info email">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                            <polyline points="22,6 12,13 2,6"></polyline>
-                        </svg>
+                    <a href="#/contact" data-link class="nav-btn">
                         <span class="btn-wrapper">
-                            <span class="btn-text">info@gettourism.com</span>
-                            <span class="btn-text-hover">info@gettourism.com</span>
+                            <span class="btn-text">Contact</span>
+                            <span class="btn-text-hover">Contact</span>
                         </span>
+                        <svg class="nav-arrow" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                        </svg>
                     </a>
                 </div>
             </div>
@@ -85,10 +90,13 @@ export default class Navbar {
                                 <a href="#/about" data-link>About</a>
                             </div>
                             <div class="menu-link-item">
+                                <a href="#/" class="featured-link-mobile">Featured</a>
+                            </div>
+                            <div class="menu-link-item">
                                 <a href="#/services" data-link>Services</a>
                             </div>
                             <div class="menu-link-item">
-                                <a href="tel:+971551248758">Contact</a>
+                                <a href="#/contact" data-link>Contact</a>
                             </div>
                         </div>
                         <div class="menu-footer">
@@ -158,7 +166,24 @@ export default class Navbar {
                 padding: 0.8rem 2rem;
                 text-decoration: none;
                 overflow: hidden;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
             }
+
+            .nav-arrow {
+                width: 16px;
+                height: 16px;
+                opacity: 0;
+                transform: translateX(-8px);
+                transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .nav-btn:hover .nav-arrow {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
 
             .btn-wrapper {
                 position: relative;
@@ -224,11 +249,11 @@ export default class Navbar {
             }
 
             .navbar.scrolled .burger-line {
-                background-color: #000;
+                background-color: #02184C;
             }
             
             .navbar .menu-button.active .burger-line {
-                background-color: #000 !important;
+                background-color: #02184C !important;
             }
 
             /* Side Menu Styles */
@@ -348,6 +373,65 @@ export default class Navbar {
         if (overlay) {
             overlay.addEventListener('click', () => this.toggleMenu(false));
         }
+
+        // Featured link scroll functionality
+        const featuredLink = this.element.querySelector('.featured-link');
+        if (featuredLink) {
+            featuredLink.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                // Check if we're already on home page
+                const isHomePage = window.location.hash === '' || window.location.hash === '#/' || window.location.hash === '#';
+
+                if (isHomePage) {
+                    // Scroll to featured section if already on home
+                    const featuredSection = document.querySelector('.featured-trips');
+                    if (featuredSection) {
+                        featuredSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                } else {
+                    // Navigate to home first, then scroll (handled in home.js)
+                    window.location.hash = '#/';
+                    setTimeout(() => {
+                        const featuredSection = document.querySelector('.featured-trips');
+                        if (featuredSection) {
+                            featuredSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }, 500); // Wait for page to load
+                }
+            });
+        }
+
+        // Featured link scroll functionality (Mobile)
+        const featuredLinkMobile = this.element.querySelector('.featured-link-mobile');
+        if (featuredLinkMobile) {
+            featuredLinkMobile.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.toggleMenu(false); // Close mobile menu first
+
+                // Check if we're already on home page
+                const isHomePage = window.location.hash === '' || window.location.hash === '#/' || window.location.hash === '#';
+
+                if (isHomePage) {
+                    // Scroll to featured section if already on home
+                    setTimeout(() => {
+                        const featuredSection = document.querySelector('.featured-trips');
+                        if (featuredSection) {
+                            featuredSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }, 300); // Small delay for menu close animation
+                } else {
+                    // Navigate to home first, then scroll
+                    window.location.hash = '#/';
+                    setTimeout(() => {
+                        const featuredSection = document.querySelector('.featured-trips');
+                        if (featuredSection) {
+                            featuredSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }, 800); // Longer wait for page load
+                }
+            });
+        }
     }
 
     /**
@@ -428,8 +512,8 @@ export default class Navbar {
         this.scrollTriggerAnim = gsap.to(this.element, {
             yPercent: -100,
             paused: true,
-            duration: 0.3,
-            ease: 'power2.out'
+            duration: 0.5,
+            ease: 'power3.inOut'
         });
 
         // Global trigger for non-home pages
@@ -456,26 +540,40 @@ export default class Navbar {
     setSolid(isSolid) {
         if (isSolid) {
             this.element.classList.add('solid');
-            gsap.set(this.element, {
-                backgroundColor: 'rgba(255, 255, 255, 1)',
-                backdropFilter: 'blur(10px)',
-                borderBottom: '1px solid rgba(0, 0, 0, 0.1)'
-            });
             const navLinks = this.element.querySelectorAll('.nav-btn, .contact-info');
             const navLogo = this.element.querySelector('.nav-logo');
-            if (navLogo) gsap.set(navLogo, { opacity: 1 });
-            if (navLinks.length > 0) gsap.set(navLinks, { color: 'rgb(0, 0, 0)' });
+            if (navLogo) {
+                gsap.to(navLogo, {
+                    opacity: 1,
+                    duration: 0.6,
+                    ease: 'power2.out'
+                });
+            }
+            if (navLinks.length > 0) {
+                gsap.to(navLinks, {
+                    color: 'rgb(2, 24, 76)',
+                    duration: 0.6,
+                    ease: 'power2.out'
+                });
+            }
         } else {
             this.element.classList.remove('solid');
-            gsap.set(this.element, {
-                backgroundColor: 'rgba(255, 255, 255, 0)',
-                backdropFilter: 'blur(0px)',
-                borderBottom: '1px solid rgba(0, 0, 0, 0)'
-            });
             const navLinks = this.element.querySelectorAll('.nav-btn, .contact-info');
             const navLogo = this.element.querySelector('.nav-logo');
-            if (navLogo) gsap.set(navLogo, { opacity: 0 });
-            if (navLinks.length > 0) gsap.set(navLinks, { color: 'rgb(255, 255, 255)' });
+            if (navLogo) {
+                gsap.to(navLogo, {
+                    opacity: 0,
+                    duration: 0.6,
+                    ease: 'power2.out'
+                });
+            }
+            if (navLinks.length > 0) {
+                gsap.to(navLinks, {
+                    color: 'rgb(255, 255, 255)',
+                    duration: 0.6,
+                    ease: 'power2.out'
+                });
+            }
         }
     }
 

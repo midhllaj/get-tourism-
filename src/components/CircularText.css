@@ -1,0 +1,43 @@
+.circular-text-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    /* Center in parent */
+    cursor: pointer;
+    user-select: none;
+}
+
+.circular-text {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: spin 20s linear infinite;
+}
+
+.circular-text span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: 0 0;
+    font-size: 10px;
+    font-weight: 500;
+    color: #ffffff;
+    text-transform: uppercase;
+    white-space: pre;
+    /* Preserve spaces if any */
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

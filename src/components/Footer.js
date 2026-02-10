@@ -1,3 +1,5 @@
+import CircularText from './CircularText.js';
+
 export default class Footer {
     constructor() {
         this.html = `
@@ -5,33 +7,29 @@ export default class Footer {
                 <div class="footer-content">
                     <div class="footer-top">
                         <div class="footer-left">
-                            <h2>Great Escapes Tourism</h2>
-                            <p>Turn your journey into a memory of a lifetime.</p>
+                            <img src="/assets/get logo.png" alt="Great Escapes Tourism" class="footer-logo" />
                         </div>
                         <div class="footer-nav">
-                            <div class="link-col">
-                                <h4>Explore</h4>
-                                <a href="#/">Home</a>
-                                <a href="#/destinations">Destinations</a>
-                                <a href="#/services">Services</a>
-                            </div>
-                            <div class="link-col">
-                                <h4>Company</h4>
-                                <a href="#/about">About Us</a>
-                                <a href="#/contact">Contact</a>
-                                <a href="#">Careers</a>
-                            </div>
+                            <a href="#/">Home</a>
+                            <a href="#/destinations">Destinations</a>
+                            <a href="#/services">Services</a>
+                            <a href="#/about">About Us</a>
+                            <a href="#/contact">Contact</a>
                         </div>
                     </div>
                     <div class="footer-bottom">
-                        <p>&copy; 2026 Great Escapes Tourism. All rights reserved.</p>
-                        <div class="footer-socials">
-                            <a href="#">Instagram</a>
-                            <a href="#">LinkedIn</a>
-                            <a href="#">Twitter</a>
+                        <div class="footer-bottom-left">
+                            <p>&copy; 2026 Great Escapes Tourism. All rights reserved.</p>
+                        </div>
+                        <div class="footer-credits">MADE BY STARSHAPE.IN</div>
+                        <div class="footer-bottom-right">
+                            <div class="footer-socials">
+                                <a href="#">Instagram</a>
+                                <a href="#">LinkedIn</a>
+                                <a href="#">Twitter</a>
+                            </div>
                         </div>
                     </div>
-                    <div class="footer-credits">MADE BY STARSHAPE.IN</div>
                 </div>
             </footer>
         `;
@@ -43,13 +41,24 @@ export default class Footer {
         footerTemplate.innerHTML = this.html.trim();
         const footerElement = footerTemplate.firstChild;
 
-        if (options.type) {
-            footerElement.classList.add(`${options.type}-footer`);
-        }
+        // Default to fixed positioning for parallax effect
+        const footerType = options.type || 'fixed';
+        footerElement.classList.add(`${footerType}-footer`);
 
         container.appendChild(footerElement);
 
-        if (options.type !== 'relative') {
+        // Mount CircularText
+        const creditsElement = footerElement.querySelector('.footer-credits');
+        if (creditsElement) {
+            creditsElement.innerHTML = '';
+            new CircularText({
+                text: 'MADE BY STARSHAPE .IN',
+                onHover: 'speedUp',
+                spinDuration: 20
+            }).mount(creditsElement);
+        }
+
+        if (footerType !== 'relative') {
             this.initStickyFooter(container);
         }
     }
@@ -59,9 +68,7 @@ export default class Footer {
             const footer = container.querySelector('.footer');
             // Try to find a main content wrapper to apply margin-bottom
             const mainContent = container.querySelector('.main-content') ||
-                container.querySelector('.about-page') ||
-                container.querySelector('.contact-page') ||
-                container.querySelector('.destinations-page') ||
+                container.querySelector('.page-container') ||
                 container.querySelector('.globe-container');
 
             if (footer && mainContent) {
